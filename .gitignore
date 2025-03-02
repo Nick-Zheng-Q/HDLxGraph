@@ -1,0 +1,11 @@
+__pycache__/
+neo4j-community-3.5.5/
+Pyverilog/
+parser.out
+parsetab.py
+rtl-repo/
+iverilog*/
+version*.json.gz
+dataset/debugging/*/
+!dataset/debugging/database/
+*/.venv/
