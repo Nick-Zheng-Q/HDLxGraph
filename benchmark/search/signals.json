@@ -1,0 +1,802 @@
+[
+  {
+    "name": "KEEP_WIDTH",
+    "description": "The `KEEP_WIDTH` signal determines the width of byte-valid indicators (`tkeep`) in an AXI stream interface. It is set to `M_BYTE_LANES` if `EXPAND_BUS` is true, otherwise `S_BYTE_LANES`. It controls the width of signals like `pre_fifo_axis_tkeep` and `post_fifo_axis_tkeep`, which mark valid bytes in data streams."
+  },
+  {
+    "name": "n",
+    "description": "The signal `n` is a `genvar` used in generate loops to iterate over instances or logic blocks, enabling the creation of multiple instances or operations during design elaboration. It facilitates differential signal generation by indexing into arrays for single-ended to differential conversion."
+  },
+  {
+    "name": "aib_io_buffer",
+    "description": "The `aib_io_buffer` signal facilitates bidirectional communication by handling data, clock, and control signals. It processes input/output data, manages asynchronous data, and controls transmission (`txen`), reception (`rxen`), and drive strength (`weaken`) through the `io_pad` for efficient data exchange."
+  },
+  {
+    "name": "DATA_WIDTH",
+    "description": "The `DATA_WIDTH` signal determines the width of data buses in the design, dynamically set to either `M_DATA_WIDTH` or `S_DATA_WIDTH` based on the `EXPAND_BUS` condition, and is used to define the width of data signals before and after the FIFO buffer."
+  },
+  {
+    "name": "mac_pause_ctrl_rx_inst",
+    "description": "The signal `mac_pause_ctrl_rx_inst` controls the reception of Ethernet flow control packets, managing both link (LFC) and priority (PFC) flow control. It processes control frames, tracks flow control states (XON/XOFF), and updates statistics based on received packets and configuration settings."
+  },
+  {
+    "name": "Out_Data_2",
+    "description": "Out_Data_2 is a signed output combining additions from Data_0_Add_7_C and Data_1_Add_6_F with subtractions of Data_2_Add_5_F and Data_3_Add_4_C, producing one of eight arithmetic results for multi-channel operations. (49 words)"
+  },
+  {
+    "name": "Add_5",
+    "description": "Add_5 is a state in a coffee machine controller's state machine, activated when a 5 RMB coin is inserted (via condition 'f'). It configures signals to process the 5 RMB input, updates counters, and transitions to refund/verification states for payment validation."
+  },
+  {
+    "name": "clk",
+    "description": "The `clk` signal is the clock input that synchronizes operations in the module, driving sequential logic updates (e.g., `last_tlast`) on its rising edge. It ensures proper timing for data and control signal processing within the AXI Stream interface and downstream handshaking."
+  },
+  {
+    "name": "M_KEEP_ENABLE",
+    "description": "**M_KEEP_ENABLE** determines whether the `tkeep` signal is enabled for the master interface (`m_axis_*`) based on the data width. If `M_DATA_WIDTH` exceeds 8, `M_KEEP_ENABLE` is set to 1, enabling byte-level data control; otherwise, it is disabled."
+  },
+  {
+    "name": "udp_tx_ip_dest_ip",
+    "description": "The signal `udp_tx_ip_dest_ip` is a 32-bit wire that specifies the destination IP address for UDP transmissions, ensuring packets are routed to the correct endpoint in network communication. It is used in IP packet processing and multiplexing within the module."
+  },
+  {
+    "name": "Data_0_Sub_7_D",
+    "description": "Data_0_Sub_7_D is a signed register/output in stage 0, storing/sub-forwarding subtraction results for bit 7 of data line D. Selected via 'Sele', it handles arithmetic operations in a multi-stage ALU/data path, using two's complement for signed values."
+  },
+  {
+    "name": "alu_req_alu_op1",
+    "description": "alu_req_alu_op1 selects the first ALU operand: uses program counter (alu_i_pc) if op1pc is true, otherwise selects register rs1 (alu_i_rs1) for arithmetic/logic computations. (28 words)"
+  },
+  {
+    "name": "Data_0_Sub_7_B",
+    "description": "Data_0_Sub_7_B is a signed register/output in stage 0, routing subtraction result (Data_Sub_B) to bit 7 when selector Sele=00. Part of a multi-stage arithmetic data path handling add/sub operations across stages 0-3. (49 words)"
+  },
+  {
+    "name": "IM_DATA",
+    "description": "The `IM_DATA` signal specifies the file path `\"im_data.txt\"`, which is used to load hexadecimal data into a memory array during simulation initialization. It serves as a reference for reading and storing image data in the memory."
+  },
+  {
+    "name": "ms_wait_rx_osc_rdy",
+    "description": "The signal `ms_wait_rx_osc_rdy` represents a state in which the master waits for the oscillator to be ready before enabling data transfer, ensuring synchronization and proper initialization in the communication process."
+  },
+  {
+    "name": "In_Data_1",
+    "description": "In_Data_1 is a signed input bus used as a subtraction operand (Data_0_Sub_7) in arithmetic operations. It latches into registers on clock edges post-reset, contributing to bit-specific subtractions paired with In_Data_0 for data processing."
+  },
+  {
+    "name": "buf_icb_rsp_valid",
+    "description": "buf_icb_rsp_valid indicates a valid response from the ICB buffer (u_sirv_gnrl_icb_buffer) to downstream modules like u_biu_icb_splt. It enables handshake-based transfer of response data (rdata, errors, exclusives) between buffered command-response stages in the ICB interface."
+  },
+  {
+    "name": "Coffee_Place_cup",
+    "description": "Coffee_Place_cup is an output signal that triggers the coffee machine's cup placement mechanism, signaling readiness to receive a cup after coin validation and coffee preparation steps are completed. It coordinates with Cup_rdy and Inject_cof for workflow synchronization. (49 words)"
+  },
+  {
+    "name": "splt_bus_icb_cmd_beat",
+    "description": "The `splt_bus_icb_cmd_beat` signal aggregates command beat information for parallel transactions across multiple interfaces (ifuerr, ppi, clint, etc.) in a split bus structure. Its width scales with `BIU_SPLT_I_NUM`, enabling concurrent command handling via the `biu_icb_splt` module, which manages bus arbitration and protocol features."
+  },
+  {
+    "name": "Selector_1_to_4",
+    "description": "The Selector_1_to_4 module routes one of four datasets (0-3) to outputs based on selection signal `Sele`. Each dataset includes Add (A,C,F) and Sub (B,D,E,G) signals, selected via inputs like Data_X_Add_Y/Z_Sub_Y. (49 words)"
+  },
+  {
+    "name": "iopad_dev_por",
+    "description": "The signal `iopad_dev_por` is a bidirectional port used in power-on reset (POR) logic. It interfaces with external devices, facilitates asynchronous data handling, and is controlled by override signals like `por_oe` and `por_ie`, ensuring proper device initialization and reset management."
+  },
+  {
+    "name": "Data_1_Add_6_C",
+    "description": "Data_1_Add_6_C is a signed bus carrying addition data (component C) from dataset 1's group 6. It routes through Selector_1_to_4 based on selection signal Sele and feeds into Adder_2 for arithmetic processing before output. (49 words)"
+  },
+  {
+    "name": "s_udp_source_port",
+    "description": "The signal `s_udp_source_port` specifies the source port number in the UDP header, identifying the originating application or service for the UDP packet being processed."
+  },
+  {
+    "name": "KEY_W",
+    "description": "KEY_W defines the bit width for key signals (key_in, key_out), registers (key_r0/r1), and edge detection (nedge). It parameterizes key storage and synchronization stages in the module. (30 words)"
+  },
+  {
+    "name": "opcode",
+    "description": "The `opcode` signal is a 6-bit input that determines the processor's control signals, such as ALU operations, memory access, branching, and jump instructions, based on its value. It guides the execution of specific operations by modifying the default control signal values."
+  },
+  {
+    "name": "a",
+    "description": "The signal `a` is a 16-bit input used in two contexts: as one of the primary inputs for processing alongside `b` and `c` to produce `p`, and as an input to a multiplier module `mul` that computes the product of `a` and `b`."
+  },
+  {
+    "name": "m_ip_eth_src_mac",
+    "description": "The signal `m_ip_eth_src_mac` represents the source MAC address in an Ethernet frame associated with IP packet processing. It is directly assigned the value of `ip_rx_ip_eth_src_mac`, ensuring the source MAC address is passed through during IP packet transmission."
+  },
+  {
+    "name": "i_mstxdlldcclockreq",
+    "description": "The signal `i_mstxdlldcclockreq` synchronizes the `ms_dcc_cal_req` input with the clock `clk_in` and reset `reset_n_sync`, generating a stable, clock-aligned output `ms_dcc_cal_req_sync`. This ensures signal integrity across clock domains."
+  },
+  {
+    "name": "plic_icb_cmd_size",
+    "description": "plic_icb_cmd_size specifies the data transfer size (in bytes) for PLIC's ICB transactions, routing the split bus command size to the PLIC interface for read/write operations. (50 words)"
+  },
+  {
+    "name": "s_axis_tdata_reg",
+    "description": "The signal `s_axis_tdata_reg` is a register that temporarily stores incoming data from the AXI stream interface (`s_axis_tdata`). It is initialized to zero and updated conditionally during data transfer operations, ensuring proper data flow and segmentation between source and destination interfaces."
+  },
+  {
+    "name": "itxen_out",
+    "description": "The signal `itxen_out` is an output that transmits data or control information, determined by the `shift_en` signal. If `shift_en` is active, `itxen_out` takes the value of `itxen_in1`; otherwise, it takes the value of `itxen_in0`. This acts as a multiplexer for the output."
+  },
+  {
+    "name": "mem_icb_cmd_size",
+    "description": "mem_icb_cmd_size specifies the data transfer size (e.g., byte/word) for memory interface commands, routing transaction width info from internal split bus to the memory ICB command interface via concatenation assignment. (50 words)"
+  },
+  {
+    "name": "Mult_Sub_B",
+    "description": "Mult_Sub_B stores the product of Data_Sub and coefficient B using extended precision (WIDTH+10 bits) to prevent overflow during multiplication, then outputs its upper WIDTH bits after discarding lower 10 bits for result scaling."
+  },
+  {
+    "name": "En_In",
+    "description": "En_In enables data capture from In_Data, triggers W_En assertion, and increments W_Address (wrapping at 63), synchronizing data transfer and address control under clock/reset. (49 words)"
+  },
+  {
+    "name": "ENABLE_PADDING",
+    "description": "The `ENABLE_PADDING` signal, when set to 1, enables padding in the module, ensuring that frames meet the minimum length requirement (`MIN_FRAME_LENGTH`). This is typically used in Ethernet communication to maintain frame integrity and compliance with protocol standards."
+  },
+  {
+    "name": "ms_rx_async_rstw",
+    "description": "The signal `ms_rx_async_rstw` is an asynchronous reset control signal. It is conditionally set based on the state of `msrxcal_curst[2:0]` and `ms_wait_rx_xfer_req`, and is used to update the `ms_rx_async_rst` register during clocked operations."
+  },
+  {
+    "name": "RAM_0_Out",
+    "description": "**Summary:** RAM_0_Out carries data read from RAM module 0. It is selected as the output (Out_Data) when Chip_Sele_DFF is active, routing RAM_0's content to downstream components. (30 words)"
+  },
+  {
+    "name": "phy_gmii_tx_clk",
+    "description": "The `phy_gmii_tx_clk` signal is an output clock that synchronizes the transmission of GMII TX data, enable, and error signals from the MAC to the PHY layer, ensuring proper timing and data integrity during communication between the MAC and PHY interfaces."
+  },
+  {
+    "name": "m_udp_ip_version",
+    "description": "The `m_udp_ip_version` signal specifies the IP version (e.g., IPv4 or IPv6) for outgoing UDP packets, ensuring compatibility with the network protocol being used. It is part of the UDP packet header in the transmit path."
+  },
+  {
+    "name": "sl_dcc_cal_donew",
+    "description": "The signal `sl_dcc_cal_donew` indicates the completion of a calibration process in a slave device. It is set to `0` if calibration is not requested, `1` if conditions for calibration are met, or retains its previous state otherwise. It updates synchronously with a clock signal."
+  },
+  {
+    "name": "rd_data",
+    "description": "The rd_data signal transmits 8-bit data read from the I²C interface (u_i2c) to the read/write control module (u_rw_ctrl), facilitating data transfer during read operations. (37 words)"
+  },
+  {
+    "name": "output_q_p",
+    "description": "The `output_q_p` signal represents the positive side of a differential data output. It is derived from `output_q` either directly or through a differential buffer, ensuring it transmits data with its complementary signal `output_q_n`, typically for robust high-speed communication."
+  },
+  {
+    "name": "Data_3_Sub_4_B",
+    "description": "Signal `Data_3_Sub_4_B` is a signed input representing a subtraction operand (channel 3, address 4) used in arithmetic computations. It contributes to output results like `Out_Data_7` via combinations of add/sub operations across data channels, supporting two's complement arithmetic. (49 words)"
+  },
+  {
+    "name": "jtag_rstb_en",
+    "description": "The `jtag_rstb_en` signal is a JTAG interface control input that enables or disables the JTAG reset functionality, ensuring proper initialization and operation of the JTAG logic during testing or debugging processes."
+  },
+  {
+    "name": "clk",
+    "description": "The `clk` signal is the clock input that synchronizes all operations in the module. It triggers updates to various control signals and counters on its rising edge, ensuring coordinated state transitions and resets based on conditions and enable signals (`ce` and `master_rst`)."
+  },
+  {
+    "name": "Grt_3",
+    "description": "Grt_3 indicates inserted coins exceed 3 units, triggering refund operations by transitioning the state machine to return_1, enabling coin return when payment exceeds required amount."
+  },
+  {
+    "name": "CLK_B_SEND",
+    "description": "CLK_B_SEND is an asynchronous signal from domain B, initiating clock transmission to domain A. It is synchronized via the sigBtoA module using CLK_A, generating CLK_A_RECV to enable metastability-safe cross-domain clock distribution. (42 words)"
+  },
+  {
+    "name": "din",
+    "description": "#!# 如何用 Python 构建 URL 缩短器\n\n# Simple---\n# README\n\n# User_management# 计算机网络基础\n\n---\ntitle: \"How to: Programmatically add new worksheets to work# Equipment\n\n<issue_start><issue_comment>Title: Double tap to zoom\n---\n<pr>Title: Step 3: Create a new web application\n# Blog-Post-React-Native\n## 0.# MyFirstRepo\n# iNeuron Full---\ntitle: \"En el area de investigaciones avanzadas de Tejidos Artificiales\"\ndate: 2022-07---\n# Changel# PA2\n# 1.1.0\n\n- Removed `config` as# css-psuedo-elements\n# kaca menghancurkan peralatan untuk dijual\n\n# Change Log\n\n# [1.1.# chancadora en venta lima peru telefono nextel de 10 x 20 precios\n\n<a href=\"https://swt.shibang-china.com# Change Logs\n\n## <jupyter_script>import pandas as pd\n# News Sentiment Analysis\n\n### Introduction\n# 0x# BITCOIN\n\n## The Future of Money# my-first-repo\n# Proteo\n\n<pr>Title: Replace deprecated request withfilename: Lab<pr>Title: BugWIP: Add error handling\nif (SERVER) then// The function is called when the client disconnect or lose the connection with#include <iostream>\n#include <fstream#include <#include <Kruskal (MST): Really5. 设计模式（Design Patterns）与编程范式\n\n5.1. 单例模式（Singleton Pattern）\n#include <#include <++.h>#include <bits/stdc++.h>\nnclude \"stdio.h\"\ninclude \"main.h\"\n\n/**\n * _strcat - Concatenates two strings\n// The function is called when the client disconnect or lose the connection\n#include \"stdio.h\"\n#include \"main.h\"\n\n/**\n * _str// The function is called when the client disconnect or lose the connection\n#include \"stdio.h\"\n#include \"main.h\"\n\n/**\n * _str#include \"main.h\"\n\n/**\n * set#ifndef _THREAD_#include <stdio.h>\n#include <stdlib.h>\n\nint main()\n{\n  int i, j, k, n, m#include <bits/stdc++.h>\n\nusing namespace std;\n\nint main(){\n    int t;\n    cin>>t;\n    while(t--){\n        int n;\n        cin>>n;\n        string s;\n        cin>>s;\n        if(n==1){\n            cout<<\"-1 -1\"<<endl;\n            continue;\n        }\n        bool#include <iostream// { Driver Code Starts\n#include <iostream\n\n#include <iostream>\n\nusing namespace std;\n\nint main() {\n    int n, m;\n    cin >> n >> m;\n    int a, b;\n    int t[100];\n    for (int i = 0; i < n; i#include \"bits/stdc++.h\"\r\n#include <bits/stdc++.h>\n#include<bits/stdc++.h>\n#include \"bits/stdc++.h\"\n\nusing namespace std;\n\nclass Solution {\nprivate:\n    vector<vector<int>> g;\n    int n#include <iostream>\n#include <string>\n#include <cmath>\n#include <vector#include <#include<bits/stdc++.h>\n// Copyright#include <iostream++.h>#include <bits/stdc++.h>\r// The function is not returning the correct values. Can you fix the code?\n\n#include <bits/stdc++.h>\r/*\n * @Author: JorD\n// Copyright// Created by Yaniru on 6/28/2022.\n\n#include <iostream>\n#include <iostream>\n#include <string#include \"Header.h\"\n\n\n\nint main()\n{\n\tstring a;\n\tstring b;\n\n\tMyString c(a);\n\tMyString d(b);\n\tMyString e;\n\n\tcin >> a >> b;\n\tc = a;\n\t_display(c);\n\td = b;\n\t_display(d);\n\te = c + d;\n\t_display(e);\n\t_display(c);\n\t_display(d);\n\n}"
+  },
+  {
+    "name": "USER_WIDTH",
+    "description": "The signal `USER_WIDTH` defines the width of the user-defined data field in AXI stream interfaces, set to 1 bit in this module. It is used to carry additional user-specific information through the streaming data path, both in input and output streams, and in intermediate FIFO buffers."
+  },
+  {
+    "name": "sl_external_cntl_30_28",
+    "description": "The `sl_external_cntl_30_28` signal is a 3-bit input used as part of a larger control vector in a complex interface module. It contributes to configuring and managing the behavior of the slave-side logic, particularly in data transfer and clock synchronization processes."
+  },
+  {
+    "name": "sl_data_capr",
+    "description": "The signal `sl_data_capr` is a multi-bit register used to store and transfer data within the module. It is updated synchronously based on clock and reset conditions, and its value can be directly assigned to other signals or conditionally selected based on control logic."
+  },
+  {
+    "name": "tx_lfc_req_sync_reg_3",
+    "description": "The signal `tx_lfc_req_sync_reg_3` is a synchronized register used in flow control. It is reset to `0` on reset, holds the value of `tx_lfc_req_sync_reg_2` on clock edges, and contributes to pause request logic when enabled by `tx_lfc_pause_en`."
+  },
+  {
+    "name": "Data_2_Add_5_C",
+    "description": "Data_2_Add_5_C is a signed data signal in the third input group (Data_2) of the Selector_1_to_4 module, routed to Adder_2 for arithmetic processing when selected. It participates in addition operations and drives subsequent flip-flop outputs. (49 words)"
+  },
+  {
+    "name": "tx_fifo_bad_frame",
+    "description": "The `tx_fifo_bad_frame` signal indicates when a corrupted or invalid frame is detected in the transmit FIFO. It is an output status flag that helps monitor the integrity of data being transmitted, signaling issues with the frame structure or content."
+  },
+  {
+    "name": "clk",
+    "description": "The `clk` signal is the clock input that synchronizes the operation of the module. It triggers updates to the `reg_op` register on its rising edge, enabling reset or data storage based on the conditions of `master_rst` and `rst_m`."
+  },
+  {
+    "name": "TX_PTP_TAG_ENABLE",
+    "description": "The signal `TX_PTP_TAG_ENABLE` determines whether Precision Time Protocol (PTP) timestamp tagging is enabled in the transmitter. It influences the width of the user data field and is conditional on the broader PTP timestamping configuration, ensuring proper handling of PTP-related data in the transmission process."
+  },
+  {
+    "name": "data_iddr_inst",
+    "description": "The `data_iddr_inst` signal is an IDDR block that captures `input_d` on both rising and falling edges of `clk_io`, producing outputs `output_q1` (rising edge) and `output_q2` (falling edge). It enables double data rate input sampling."
+  },
+  {
+    "name": "sl_tx_transfer_en",
+    "description": "The signal `sl_tx_transfer_en` is an output that enables the transmission of data from the slave interface. It is part of a control mechanism ensuring proper data transfer and synchronization between master and slave components in the system."
+  },
+  {
+    "name": "rx_prescale",
+    "description": "The `rx_prescale` signal is a 3-bit counter that increments on each rising edge of `rx_clk`, wrapping around after reaching its maximum value. It is also used to synchronize the most significant bit with `gtx_clk` in a shift register. Initially, it is set to zero."
+  },
+  {
+    "name": "En_Out",
+    "description": "En_Out enables serial output of 8 pixel data via Out_Data, triggered by End_Calc, synchronized with clock/Reset_n, signaling external circuits to accept transmitted data. (49 words)"
+  },
+  {
+    "name": "DEST_WIDTH",
+    "description": "The signal `DEST_WIDTH` defines the bit width for the destination field in an AXI4-Stream interface, used to carry routing information for data packets throughout the module. It is configured as a parameter and utilized in both input and output stream signals."
+  },
+  {
+    "name": "iopad_spareo",
+    "description": "The signal `iopad_spareo` is a bidirectional I/O pad used as a spare or auxiliary signal in the interface module. It provides flexibility for additional functionality or debugging purposes, ensuring expandability or customization in the design."
+  },
+  {
+    "name": "ms_dcc_cal_req_sync",
+    "description": "The signal `ms_dcc_cal_req_sync` is a synchronized version of `ms_dcc_cal_req`, used in a master-slave configuration for DCC calibration. It ensures the calibration request is stable and aligned with the clock domain, enabling reliable control over the calibration process."
+  },
+  {
+    "name": "stage_valid",
+    "description": "The `stage_valid` signal is an array of validity flags used in a multi-stage pipeline or hierarchical design. Each element checks the validity of its stage by combining signals from the previous stage, propagating validity through the hierarchy until the final stage determines the `output_valid` signal."
+  },
+  {
+    "name": "a",
+    "description": "The signal `a` is an `N`-bit input representing a signed number. It is used in signed addition or subtraction operations with another input `b`. The sign bit (`a[N-1]`) determines the operation, while the magnitude bits (`a[N-2:0]`) are compared and processed to compute the result."
+  },
+  {
+    "name": "jtag_mode_in",
+    "description": "The `jtag_mode_in` signal is an input that controls the operational mode of the JTAG interface, enabling or configuring JTAG-specific functionalities such as testing, debugging, or boundary scan operations within the module."
+  },
+  {
+    "name": "i2c_sda_o",
+    "description": "i2c_sda_o is the I²C data output wire driven by the controller during transactions. It transmits data and uses i2c_sda_oe for tri-state control, enabling bus access management per I²C protocol. (49 words)"
+  },
+  {
+    "name": "jtag_mode_in",
+    "description": "The `jtag_mode_in` signal is an input that controls the operational mode of the JTAG interface, enabling or disabling JTAG-specific functionality such as boundary scan or test mode within the module."
+  },
+  {
+    "name": "req",
+    "description": "The 'req' signal initiates read/write operations, signaling u_rw_ctrl to manage data transactions and u_i2c to execute I²C protocol, coordinating request processing between modules. (49 words)"
+  },
+  {
+    "name": "input_d2",
+    "description": "The signal `input_d2` is a data input of width `WIDTH`, used alongside `input_d1` in a double data rate (DDR) mechanism. It is synchronized with clock signals to produce a combined output, enabling efficient data transfer on both rising and falling clock edges."
+  },
+  {
+    "name": "rx_mcf_params",
+    "description": "The signal `rx_mcf_params` carries multi-byte parameters associated with received Ethernet control frames, such as flow control or configuration data, across the system. It is used in modules handling Ethernet frame processing and flow control, ensuring proper validation and management of incoming data."
+  },
+  {
+    "name": "i",
+    "description": "The signal `i` is a `genvar` used to iterate over generate blocks, creating multiple instances of the `reg_inst` module with AXI4-Stream interfaces, shifting data and control signals from index `i` to `i+1`."
+  },
+  {
+    "name": "lsu2biu_icb_cmd_wmask",
+    "description": "The signal **lsu2biu_icb_cmd_wmask** is a 4-bit write mask from the LSU to BIU, indicating which 8-bit bytes of **lsu2biu_icb_cmd_wdata** are valid during write transactions. It specifies byte enables for memory/peripheral writes and is combined with the IFU's mask for arbitration. (47 words)"
+  },
+  {
+    "name": "s_axis_tready",
+    "description": "The `s_axis_tready` signal indicates the readiness of the slave interface to accept data. It is controlled by the master interface's readiness (`m_axis_tready`) or inversely by the slave's validity (`s_axis_tvalid_reg`), ensuring data flow coordination between interfaces."
+  },
+  {
+    "name": "por_sl",
+    "description": "The `por_sl` signal is a Power-On Reset input specifically for the slave configuration. It initializes the slave module upon system power-up, ensuring proper startup and reset behavior."
+  },
+  {
+    "name": "core_biu_active",
+    "description": "**core_biu_active** signals Bus Interface Unit (BIU) activity, enabling its clock (**clk_core_biu**) via **biu_clk_en** when active or in core power-saving mode (**core_cgstop**), managing dynamic clock gating for power efficiency. (49 words)"
+  },
+  {
+    "name": "In_Data_0",
+    "description": "In_Data_0 is a signed input signal (WIDTH+2 bits) that drives the synchronous assignment to Out_Data_0 via a 10-bit register. It routes data from input to output on clock edges, resetting outputs to zero when Reset_n is low. (49 words)"
+  },
+  {
+    "name": "b",
+    "description": "Signal 'b' stores the previous value of 'a' (inverted Coin_1) to detect Coin_1's falling edge. By retaining prior state, it enables edge detection when combined with current 'a' in signal 'c'. (49 words)"
+  },
+  {
+    "name": "udp_tx_ip_payload_axis_tvalid",
+    "description": "The signal `udp_tx_ip_payload_axis_tvalid` indicates whether the data on the UDP TX IP payload axis is valid, ensuring proper transmission of payload data in UDP packet processing. It is used in modules like `ip_arb_mux_inst` and `udp_64_inst` to manage data flow."
+  },
+  {
+    "name": "ms_config_done",
+    "description": "The `ms_config_done` signal indicates the completion of the master device configuration. It is used to enable resets (`ms_reset_n`) and synchronize with the clock (`ms_config_done_sync`), ensuring the system operates only after the master is fully configured."
+  },
+  {
+    "name": "axis_tvalid",
+    "description": "The `axis_tvalid` signal is a 1-bit array that indicates the validity of data in an AXI4-Stream interface. It is passed through a pipeline, ensuring data integrity from source (`s_axis_tvalid`) to destination (`m_axis_tvalid`) across indexed stages."
+  },
+  {
+    "name": "s",
+    "description": "The signal `s` represents the result of a bitwise XOR operation between input `a` and the XOR of inputs `b` and `c`, effectively calculating the parity of the three inputs."
+  },
+  {
+    "name": "Out_Data_6",
+    "description": "Out_Data_6 is a signed 10-bit output register that holds the value of In_Data_6 synchronously on clock edges. It resets to zero on active-low reset and is part of an 8-line data path for signed data transmission. (49 words)"
+  },
+  {
+    "name": "end_conv",
+    "description": "The `end_conv` signal indicates the completion of a convolutional operation in the module. It is used to control the validity of the conversion process (`valid_ip`) and is output alongside the convolution result and validity flag, signaling when the operation has finished."
+  },
+  {
+    "name": "stat_tx_lfc_xoff",
+    "description": "The signal `stat_tx_lfc_xoff` indicates the status of the XOFF flow control in the transmit path, signaling the receiver to stop sending data. In the provided code, it is permanently set to `0`, meaning the XOFF flow control is inactive or disabled."
+  },
+  {
+    "name": "Start_Calc",
+    "description": "Start_Calc is an input signal that triggers the calculation process by transitioning the state machine from ST_IDLE to ST_ADDER_1 when asserted, initiating a sequence through multiplier stages (ST_MULT_1–4), ST_Empty, and ST_ADDER_2 before returning to idle. (49 words)"
+  },
+  {
+    "name": "cfg_tx_pfc_eth_src",
+    "description": "The `cfg_tx_pfc_eth_src` signal specifies the source MAC address used in Priority Flow Control (PFC) Ethernet frames during transmission, ensuring proper identification and flow management in the network."
+  },
+  {
+    "name": "Coffee_Reset_n",
+    "description": "Coffee_Reset_n is an active-low asynchronous reset input that initializes the coffee machine's control logic, synchronizing states for coin handling, cup placement, coffee dispensing, and LCD operations when asserted low."
+  },
+  {
+    "name": "tx_error_underflow",
+    "description": "The `tx_error_underflow` signal indicates an underflow condition during data transmission, occurring when the transmitter fails to provide data in time, potentially causing gaps in the transmitted stream. It is used to flag errors in the TX path of the communication interface."
+  },
+  {
+    "name": "MAC_CTRL_ENABLE",
+    "description": "The `MAC_CTRL_ENABLE` signal acts as a control flag, enabling specific MAC layer functionalities when either `PAUSE_ENABLE` or `PFC_ENABLE` is active. It influences conditional logic in parameter definitions, such as `TX_USER_WIDTH_INT`, and impacts the configuration of modules like `axis_xgmii_tx_inst`."
+  },
+  {
+    "name": "DEPTH",
+    "description": "The signal `DEPTH` is a parameter defining the maximum capacity of a FIFO or buffer in the module, set to 4096. It is used to configure the storage size and monitor the current depth via `status_depth` and `status_depth_commit` signals."
+  },
+  {
+    "name": "Data_path_cnt_en",
+    "description": "Data_path_cnt_en is an enable signal controlling the counter (U2) in the data path. It enables counting (increment/decrement per Counter_UD) when active, gating the counter's updates based on system control logic."
+  },
+  {
+    "name": "tx_fifo_good_frame",
+    "description": "The `tx_fifo_good_frame` signal indicates that a valid, error-free frame has been successfully transmitted through the transmit FIFO, confirming proper data transfer in the TX path."
+  },
+  {
+    "name": "rst",
+    "description": "The `rst` signal is an active-high reset input that initializes the module's internal states or registers, ensuring a known condition before normal operation begins. It is typically asserted to clear or reset the module during power-up or error recovery."
+  },
+  {
+    "name": "Data_3_Sub_4_B",
+    "description": "Data_3_Sub_4_B is a signed register/output in stage 3 of an arithmetic datapath, storing results of subtraction operations (Data_Sub_B) for bit position 4. Selected via 2'b11 (Sele), it routes data to stage-specific ALU outputs for signed/unsigned arithmetic. (49 words)"
+  },
+  {
+    "name": "alu_req_alu_add",
+    "description": "The `alu_req_alu_add` signal enables the ALU add operation when active, triggered by the 4th bit of `alu_i_info` (0-based) and the inverse of `nop`. It asserts only when both conditions are met, signaling the ALU to perform addition."
+  },
+  {
+    "name": "i_sl_data_sync",
+    "description": "The signal `i_sl_data_sync` synchronizes the input data `sl_data_fr_core[i]` to the clock `sr_sl_clk_out`, using an asynchronous reset `reset_n_sync`, to produce the synchronized output `sl_data_sync[i]`."
+  },
+  {
+    "name": "TARGET",
+    "description": "The `TARGET` parameter is set to \"GENERIC\" and is used to configure the design target, defining specific implementation styles and settings like `IODDR_STYLE`, `CLOCK_INPUT_STYLE`, and `WIDTH` for the module's functionality."
+  },
+  {
+    "name": "REG_TYPE",
+    "description": "The `REG_TYPE` parameter specifies the type of register used in the module, which influences how data is processed and handled within the AXI4-Stream interface. It is a configuration parameter derived from the module's design requirements."
+  },
+  {
+    "name": "jtag_tx_scanen_in",
+    "description": "The `jtag_tx_scanen_in` signal is a JTAG input that enables or disables the scan chain for transmitting test data during JTAG-based testing, facilitating the control of test data flow within the digital circuit."
+  },
+  {
+    "name": "ID_WIDTH",
+    "description": "The signal `ID_WIDTH` defines the bit width for transaction IDs in a streaming data interface, enabling identification and tracking of individual data streams or packets. It is used across multiple modules and interfaces to maintain consistency in transaction identification."
+  },
+  {
+    "name": "s_axis_tuser",
+    "description": "The `s_axis_tuser` signal carries user-defined metadata in the streaming interface, providing additional context or control information alongside the data stream. It is directly assigned to the least significant bit of `axis_tuser` for further use in the system."
+  },
+  {
+    "name": "CHNL_TX_DATA",
+    "description": "CHNL_TX_DATA outputs transmit data to the channel, driven by internal register `rData`, providing real-time data updates for transmission over the PCI interface, synchronized with control signals (VALID, ACK) and parameters (LEN/OFF) for reliable data transfer."
+  },
+  {
+    "name": "rst",
+    "description": "The `rst` signal is an active-high reset that initializes registers (`tx_rst_reg` and `rx_rst_reg`) to `4'hf` upon assertion, ensuring a known state. It operates synchronously with clock edges (`mac_gmii_tx_clk` and `mac_gmii_rx_clk`) and enables controlled reset behavior in the module."
+  },
+  {
+    "name": "alu_req_alu_lui",
+    "description": "The signal `alu_req_alu_lui` is a control signal derived from `alu_i_info` to enable the LUI (Load Upper Immediate) operation in the ALU. It selects whether the ALU should perform LUI based on a specific bit in the control information."
+  },
+  {
+    "name": "i_sltxdcccaldone",
+    "description": "The signal `i_sltxdcccaldone` synchronizes the `sl_tx_dcc_cal_donei` input with the `osc_clk` clock domain, ensuring stability and alignment, and outputs the synchronized `sl_tx_dcc_cal_done_sync` signal."
+  },
+  {
+    "name": "Counter_cnt_value",
+    "description": "Counter_cnt_value is a 3-bit register/output that tracks the current count value. It resets to 0 asynchronously, loads a preset value on Counter_LD, and increments/decrements based on Counter_UD when enabled (Counter_EN), driven by the positive edge of Counter_clock. (49 words)"
+  },
+  {
+    "name": "Clock",
+    "description": "The Clock signal synchronizes all sequential operations: drives the 3-bit counter, loads input data into output registers on Start assertion, and controls En_Out transitions via rising edges, enabling timed data processing and output signaling. (49 words)"
+  },
+  {
+    "name": "sr_clk_out",
+    "description": "The `sr_clk_out` signal is a clock output that either carries the master clock (`osc_clk`) or a slave clock (`sr_sl_clk_out`) based on the `is_master` signal, acting as a clock multiplexer in the design."
+  },
+  {
+    "name": "m_axis_tdata_reg",
+    "description": "`m_axis_tdata_reg` is a register that stores and processes data for output. It is initialized to all zeros, updated with selected input data on clock edges, and directly drives the `m_axis_tdata` output signal. It handles data width and selection logic for multi-channel data streams."
+  },
+  {
+    "name": "sl_data_syncrw",
+    "description": "The signal `sl_data_syncrw` is a synchronized data wire used in conditional operations. It either loads `sl_data_sync`, shifts `sl_data_syncr`, or retains its current value based on control signals (`sl_load` and `sl_shift_en`), and updates a register `sl_data_syncr` on clock or reset events."
+  },
+  {
+    "name": "s_udp_ip_ecn",
+    "description": "The signal `s_udp_ip_ecn` carries the Explicit Congestion Notification (ECN) field from the UDP packet's IP header, indicating network congestion levels for traffic management."
+  },
+  {
+    "name": "mem_icb_rsp_excl_ok",
+    "description": "mem_icb_rsp_excl_ok indicates successful completion of an exclusive memory access (e.g., LDXR/STXR) for memory transactions. It is combined with peripheral responses into a split bus signal for consolidated handling of exclusive operation outcomes across the system. (50 words)"
+  },
+  {
+    "name": "tx_mcf_ready",
+    "description": "The `tx_mcf_ready` signal indicates the readiness of the transmit module to accept metadata for Ethernet frame transmission. It is used in flow control and frame processing modules (`mac_ctrl_tx_inst` and `mac_pause_ctrl_tx_inst`) to ensure valid and efficient data handling during transmission."
+  },
+  {
+    "name": "shift_en_stckb",
+    "description": "The signal `shift_en_stckb` is an input control signal that enables or disables the shifting operation for the `stckb` clock signal, typically used in scan chain or test mode operations to manage clock timing during data transfer or testing."
+  },
+  {
+    "name": "s_ip_ttl",
+    "description": "The `s_ip_ttl` signal represents the Time-To-Live (TTL) field in the IP packet header, which specifies the maximum number of hops the packet can traverse before being discarded. It is used to prevent infinite looping in the network."
+  },
+  {
+    "name": "is_master",
+    "description": "The `is_master` signal indicates the master/slave status based on `ms_nsl`. It is `1'b1` (true) when `ms_nsl` is `1'b1`, otherwise `1'b0`. Its negation, `is_slave`, represents the opposite status, ensuring mutual exclusivity between master and slave roles."
+  },
+  {
+    "name": "s_axis_tlast",
+    "description": "The `s_axis_tlast` signal indicates the end of a data packet in the AXI Stream interface. It is passed directly to `m_axis_tlast` or used in logic to manage data segmentation and validity, ensuring proper handling of packet boundaries during streaming data transfer."
+  },
+  {
+    "name": "Data_1_Sub_6",
+    "description": "Data_1_Sub_6 outputs the signed difference between input pixels In_Pixel_1 and In_Pixel_6, enabling arithmetic processing for pixel data manipulation in real time. (29 words)"
+  },
+  {
+    "name": "m_axis_tlast",
+    "description": "The signal `m_axis_tlast` indicates the end of a data stream. It is set to the value of `m_axis[LAST_OFFSET]` if `LAST_ENABLE` is true; otherwise, it defaults to `1'b1`, marking the final data transfer in the AXI4-Stream interface."
+  },
+  {
+    "name": "m_axis_tlast_reg",
+    "description": "The signal `m_axis_tlast_reg` is a register that stores the last packet indicator for multiple data streams. It is initialized to zero, updated based on a selection logic during data processing, and can be conditionally output as `m_axis_tlast` depending on the `LAST_ENABLE` signal."
+  },
+  {
+    "name": "udp_tx_ip_payload_axis_tdata",
+    "description": "The signal `udp_tx_ip_payload_axis_tdata` is a 64-bit data bus used to transmit the payload of a UDP packet over IP. It carries the actual data being sent, with its width allowing 64 bits of information to be transferred in each cycle during the transmission process."
+  },
+  {
+    "name": "key_r1",
+    "description": "key_r1 is a synchronized, registered copy of the key input delayed by one clock cycle. It serves as a prior-state reference for falling-edge detection and drives the output key_out when end_cnt is active, ensuring synchronized and debounced key value propagation. (49 words)"
+  },
+  {
+    "name": "itxen_out",
+    "description": "The signal `itxen_out` is an output enable signal for the transmit path, controlling the activation of data transmission. It is part of a redundancy mechanism, ensuring fault tolerance by selecting between primary and redundant input signals for reliable operation in the digital interface."
+  },
+  {
+    "name": "dig_rstb_adap",
+    "description": "The signal `dig_rstb_adap` is a digital reset signal used to reset or initialize the adapter block within the module, ensuring proper synchronization and operation during data transfer and JTAG testing."
+  },
+  {
+    "name": "odat_async_in1",
+    "description": "The signal `odat_async_in1` is an asynchronous data input, used alongside `odat_async_in0`, and is selected by a multiplexer (`odat_async_out_ckmux`) based on the `shift_en` control signal to determine the output `odat_async_out`. It facilitates flexible asynchronous data routing."
+  },
+  {
+    "name": "Data_0_Sub_7_G",
+    "description": "Data_0_Sub_7_G is a signed input for data channel 0's subtraction operation at address 7, contributing to Out_Data_7 via alternating arithmetic with other channel signals (e.g., -Data_1_Sub_6_E +Data_2_Sub_5_D -Data_3_Sub_4_B). (49 words)"
+  },
+  {
+    "name": "arbt_icb_cmd_size",
+    "description": "arbt_icb_cmd_size is a 2-bit signal specifying the data transfer size (e.g., bytes/words) for ICB commands arbitrated between masters. It conveys burst/data width parameters from the arbiter (u_biu_icb_arbt) to downstream buffers (u_sirv_gnrl_icb_buffer), enabling proper transaction handling in the coherent bus interface."
+  },
+  {
+    "name": "mii_select_reg",
+    "description": "The `mii_select_reg` signal is a register that typically holds a logic low (`0`) but can be set to logic high (`1`) under specific counter conditions in a clocked process. It is also synchronized with `tx_clk` and `rx_clk` to reduce metastability in related signals."
+  },
+  {
+    "name": "USER_OFFSET",
+    "description": "The signal `USER_OFFSET` acts as a dynamic starting index for user-specific data within vectors. It is conditionally calculated based on system configurations (`DEST_ENABLE`, `USER_ENABLE`) and determines the position for extracting or assigning user-related segments in data streams."
+  },
+  {
+    "name": "Chip_Sele",
+    "description": "Chip_Sele is a control signal toggled by a specific write address and enable to switch data routing between two hardware ports. It selects active chip interfaces by directing write/read operations and address paths, with a synchronized version (Chip_Sele_DFF) for stable timing."
+  },
+  {
+    "name": "clk_obufds_inst",
+    "description": "The `clk_obufds_inst` signal converts a single-ended clock (`output_clk`) into a differential pair (`output_clk_p` and `output_clk_n`) to enhance noise immunity and signal integrity, typically used in high-speed clock distribution systems."
+  },
+  {
+    "name": "s_axis_tready",
+    "description": "The `s_axis_tready` signal indicates the readiness of the module to accept incoming data on the AXI4-Stream interface. It is asserted when the system is not full (`!full_reg`), enabling the transfer of data from the source to the module."
+  },
+  {
+    "name": "sl_tx_dcc_cal_req",
+    "description": "The signal `sl_tx_dcc_cal_req` is a single-bit request signal used to initiate Duty Cycle Correction (DCC) calibration for the transmit (TX) path in the slave (`sl`) interface, ensuring proper clock signal alignment and duty cycle accuracy in the digital circuit."
+  },
+  {
+    "name": "valid_reg",
+    "description": "The `valid_reg` signal is a 2-bit register array used to store validity flags for data entries. It tracks the validity of data in a shifting buffer, updates based on input/output handshaking, and determines the validity of data on the master axis interface via `ptr_reg`."
+  },
+  {
+    "name": "plic_icb_cmd_lock",
+    "description": "The `plic_icb_cmd_lock` signal indicates whether an ICB transaction to the PLIC requires locked access, ensuring exclusive bus control for atomic or sequential operations during the transfer. (50 words)"
+  },
+  {
+    "name": "Comparator_Grt_3",
+    "description": "Comparator_Grt_3 is an output signal indicating when the input (Comparator_In) exceeds a reference value (Price) in a 3-state comparator. It activates (1) only when Comparator_In > Price, while deactivating in other cases. (48 words)"
+  },
+  {
+    "name": "DCT",
+    "description": "The DCT module processes input data streams (In_Data) triggered by Clock and Reset_n, enabling data flow via En signals. It performs discrete cosine transform, outputting results through Out_Data when En_Out is asserted, handling timed data transformation."
+  },
+  {
+    "name": "Data_U0_to_U1",
+    "description": "Signal *Data_U0_to_U1* is an 8-bit signed wire transferring data from the *Dispose* module (U0) to the *DCT* module (U1). It carries processed data enabled by *En_U0_to_U1*, facilitating communication between modules for further processing in the DCT."
+  },
+  {
+    "name": "s_udp_payload_axis_tvalid",
+    "description": "The signal `s_udp_payload_axis_tvalid` indicates whether the UDP payload data on the `s_udp_payload_axis_tdata` bus is valid for processing. It is part of the AXI-Stream interface, ensuring proper data flow control during UDP packet transmission or reception."
+  },
+  {
+    "name": "rst",
+    "description": "The `rst` signal is a reset input that initializes or clears the state of the module and its submodules, ensuring they start or restart operation from a known state when activated. It is used across all instances to synchronize reset behavior."
+  },
+  {
+    "name": "s_axis_tvalid",
+    "description": "The signal `s_axis_tvalid` indicates whether the input data on the AXI stream interface is valid. It is directly passed to the pre-FIFO stage to ensure data validity is maintained throughout the streaming data transfer process."
+  },
+  {
+    "name": "odat_async_red",
+    "description": "`odat_async_red` is an asynchronous data signal used in redundancy management (`xredundancy`) and JTAG-AIB communication (`xjtag`). It ensures reliable data transfer and fault tolerance by carrying asynchronous information between modules, supporting both redundancy and testing functionalities."
+  },
+  {
+    "name": "data_out0",
+    "description": "The `data_out0` signal is an output bus that transmits processed data from the module to external components, enabling data transfer in master or slave configurations. It is part of a complex interface supporting bidirectional communication, clocking, and control signals."
+  },
+  {
+    "name": "shift_en_stck",
+    "description": "The `shift_en_stck` signal is an input control signal that enables the shifting operation for the `stck` (stack clock) pad, facilitating clock distribution or synchronization in the module's bidirectional communication and configuration processes."
+  },
+  {
+    "name": "ms_rx_dll_lock_req",
+    "description": "The signal `ms_rx_dll_lock_req` is a single-bit wire used to request a DLL (Delay-Locked Loop) lock in the receiver module. It is passed between modules (`aib_sm` and `u_dll`) to initiate and manage the DLL locking process, ensuring proper synchronization in the system."
+  },
+  {
+    "name": "xgmii_rxc",
+    "description": "The signal `xgmii_rxc` is an output control signal in the XGMII interface, indicating control characters for the received data (`xgmii_rxd`). It helps distinguish between data and control information during data reception, ensuring proper interpretation of the incoming data stream."
+  },
+  {
+    "name": "Adder_2_to_D_Flip_Flop_2_0",
+    "description": "The Adder_2_to_D_Flip_Flop_2_0 signal transfers signed arithmetic results from Adder_2's first output to D_Flip_Flop_2's input #0, enabling synchronized data storage and forwarding to pixel-sending logic. (49 words)"
+  },
+  {
+    "name": "branch_ne",
+    "description": "The `branch_ne` signal is a control output that, when set to `1`, indicates a branch instruction where the branch should be taken if the compared values are not equal. It is activated by the opcode `6'b000101`."
+  },
+  {
+    "name": "rx_speed_count_2",
+    "description": "The signal `rx_speed_count_2` is a 2-bit counter that increments when `rx_prescale_sync` bits differ. It resets to 0 on `gtx_rst` or when it reaches its maximum value, influencing the `speed_reg` and `mii_select_reg` based on its state and `rx_speed_count_1`."
+  },
+  {
+    "name": "s_axis_tvalid_reg",
+    "description": "The signal `s_axis_tvalid_reg` acts as a validity flag for input data in an AXI-style interface. It is initialized to 0 (invalid) and toggles based on data transfer conditions, ensuring proper handling of data segments and readiness signals while maintaining synchronization with the clock and reset logic."
+  },
+  {
+    "name": "c",
+    "description": "The signal `c` is a 32-bit input used in operations such as addition or combination with other inputs (`a`, `b`, or `m`). It contributes to the computation of outputs like `p` or `sum`, depending on the module's functionality."
+  },
+  {
+    "name": "tx_bad_block",
+    "description": "The signal `tx_bad_block` indicates a detected error in the transmitted data block during the 10G Ethernet PHY transmission process. It serves as an error flag to signal issues in the transmitted data, enabling error handling or retransmission mechanisms."
+  },
+  {
+    "name": "sl_rx_dll_lock_reqw",
+    "description": "The signal `sl_rx_dll_lock_reqw` controls the DLL lock request in the receiver module. It is set to `1'b1` when the current state matches a lock request condition, `1'b0` when waiting for a transfer request, or retains its previous value otherwise. It ensures proper DLL locking behavior."
+  },
+  {
+    "name": "W_En_1",
+    "description": "W_En_1 is a write enable signal for RAM_1, activated by W_En when Chip_Sele is high to enable writes. It routes write operations to RAM_1's port based on chip select, disabling writes otherwise, facilitating address/data routing between dual ports. (49 words)"
+  },
+  {
+    "name": "Out_Data_reg_4",
+    "description": "Out_Data_reg_4 is a 10-bit signed register storing input data (In_Data_4) when Start is asserted, resetting to 0 on negedge Reset_n. It retains its value otherwise and is multiplexed to Out_Data when Counter=3'b100 and En_Out is enabled."
+  },
+  {
+    "name": "jtag_tx_scan_in",
+    "description": "The signal `jtag_tx_scan_in` is used as a scan input for JTAG test functionality. It is conditionally selected to shift data into the `tx_shift` register based on the state of `jtag_tx_scanen_in`, enabling test mode data transfer during JTAG operations."
+  },
+  {
+    "name": "clint_icb_cmd_excl",
+    "description": "clint_icb_cmd_excl indicates exclusive access requests (e.g., for atomic operations) to the CLINT peripheral in ICB transactions, derived from a split bus signal distributing exclusive control across modules. (50 words)"
+  },
+  {
+    "name": "i_multiplicand",
+    "description": "The `i_multiplicand` signal is an N-bit input operand used in a multiplication operation. It is multiplied with `i_multiplier` to produce the result `r_result`. Only its lower `N-1` bits are used in the computation, which is triggered whenever `i_multiplicand` or `i_multiplier` changes."
+  },
+  {
+    "name": "end_cnt",
+    "description": "end_cnt is a control signal indicating a 20ms timeout when cnt reaches TIME_20MS-1 during counting. It resets the counter (cnt), clears add_flag, and enables key_out toggling. It synchronizes timing-based operations across modules. (49 words)"
+  },
+  {
+    "name": "C",
+    "description": "C is a constant (473) used as a coefficient in combinational multiplication of Data_Add, generating Mult_Add_C. Defines a fixed multiplier value for signal processing operations."
+  },
+  {
+    "name": "ll_data_in",
+    "description": "The signal `ll_data_in` is a data input that carries the actual data to be transferred. It is directly assigned to the output `m_axis_tdata`, ensuring the output data reflects the input data in real-time. This signal is central to the module's data transfer functionality."
+  },
+  {
+    "name": "ref_clk",
+    "description": "The signal `ref_clk` serves as a reference clock, dynamically selected between `clk90` and `clk` based on `USE_CLK90`. It is then used as the input clock for an ODDR module, which generates the final output clock signal `output_clk`."
+  },
+  {
+    "name": "udp_rx_ip_header_checksum",
+    "description": "The `udp_rx_ip_header_checksum` signal carries the 16-bit checksum of the IP header in a UDP reception module. It is directly copied from `ip_rx_ip_header_checksum` and used to validate the integrity of the received IP header during packet processing."
+  },
+  {
+    "name": "m_udp_eth_dest_mac",
+    "description": "The `m_udp_eth_dest_mac` signal specifies the destination MAC address for outgoing UDP packets, ensuring the packet is correctly routed to the intended Ethernet device. It is part of the Ethernet header in the UDP packet processing module."
+  },
+  {
+    "name": "m_udp_ip_flags",
+    "description": "The `m_udp_ip_flags` signal is a 3-bit output that represents the IP flags field in the UDP packet's IP header. It controls fragmentation-related settings, such as whether the packet can be fragmented or is the last fragment, ensuring proper handling of IP packet segmentation."
+  },
+  {
+    "name": "i_slmsrxdlllock",
+    "description": "The signal `i_slmsrxdlllock` synchronizes the `ms_rx_dll_locki` input with the `sr_ms_clk_in` clock and `sl_reset_n_sync` reset, ensuring the output `ms_rx_dll_lock_slsync` is stable and aligned with the clock domain."
+  },
+  {
+    "name": "gmii_tx_er",
+    "description": "The `gmii_tx_er` signal is an output in the GMII interface that indicates an error during data transmission. When asserted, it signals that the transmitted data contains an error, which can be used for error detection and handling in the Ethernet MAC layer."
+  },
+  {
+    "name": "udp_rx_ip_ihl",
+    "description": "The `udp_rx_ip_ihl` signal represents the Internet Header Length (IHL) field from the IP header of a received UDP packet. It is a 4-bit value that indicates the length of the IP header in 32-bit words, essential for parsing and processing the packet."
+  },
+  {
+    "name": "s_eth_type",
+    "description": "The `s_eth_type` signal specifies the Ethernet frame type, indicating the protocol encapsulated in the payload (e.g., IPv4, IPv6, ARP). It is used to determine how the packet should be processed or forwarded within the network module."
+  },
+  {
+    "name": "rst_m",
+    "description": "The `rst_m` signal is a reset that, when active, clears the `reg_op` register to 0 on the rising edge of the clock, unless `master_rst` is already active. It is a secondary reset condition in the module."
+  },
+  {
+    "name": "splt_bus_icb_cmd_addr",
+    "description": "The signal `splt_bus_icb_cmd_addr` aggregates 32-bit address components from multiple interfaces (e.g., IFUERR, PPI, CLINT, PLIC, FIO, MEM) into a concatenated bus. It facilitates combining addresses for a split-bus interface, managed by the `u_biu_icb_splt` module, enabling concurrent command transfers across interfaces."
+  },
+  {
+    "name": "ROW2_ADDR",
+    "description": "ROW2_ADDR is a state in a display controller's state machine that sets the LCD's cursor to the start of the second row (address 0xC0) after completing the first row's data writes, enabling subsequent states to write data to the second row."
+  },
+  {
+    "name": "subnet_mask",
+    "description": "The `subnet_mask` signal specifies the network's subnet mask, determining the local network's IP address range for routing and filtering packets within the module."
+  },
+  {
+    "name": "m_axis_hdr_pad",
+    "description": "The `m_axis_hdr_pad` signal indicates whether padding has been applied to the processed data frame in the AXI4-Stream interface. It is part of the header information output by the module, signaling the need for padding to meet length requirements."
+  },
+  {
+    "name": "lsu2biu_icb_cmd_ready",
+    "description": "lsu2biu_icb_cmd_ready signals the LSU that the bus interface (BIU) is ready to accept a new command, enabling handshake synchronization between LSU command requests and bus availability via the arbiter. (48 words)"
+  },
+  {
+    "name": "jtag_clkdr_in",
+    "description": "The `jtag_clkdr_in` signal is a JTAG clock input used for controlling the clocking of the JTAG test logic, enabling scan chain operations and boundary scan testing within the module."
+  },
+  {
+    "name": "tx_clk",
+    "description": "The `tx_clk` signal is the clock input for the 10G Ethernet PHY transmitter, synchronizing data transmission and control operations within the module. It ensures proper timing for handling XGMII data, serialized data, and error detection processes."
+  },
+  {
+    "name": "splt_bus_icb_rsp_excl_ok",
+    "description": "The signal `splt_bus_icb_rsp_excl_ok` aggregates exclusive access acknowledge responses from multiple ICB modules (ifuerr, ppi, clint, etc.) into a single bus signal for unified handling in the split bus interface, indicating successful exclusive transactions."
+  },
+  {
+    "name": "iopad_arstni",
+    "description": "The signal `iopad_arstni` is an active-low asynchronous reset input used to initialize or reset the module's internal state, ensuring proper functionality during power-up or system recovery. It is bidirectional and integrated into the I/O pad interface for system-wide reset synchronization."
+  },
+  {
+    "name": "Data_3_Add_4",
+    "description": "Data_3_Add_4 is a signed register storing input In_Data_6 during active mode, reset to 0. It pairs with Data_3_Sub_4 for arithmetic operations (add/sub) between input groups, part of an 8-input arithmetic module controlled by clock/reset. (50 words)"
+  },
+  {
+    "name": "S_BYTE_LANES",
+    "description": "The signal `S_BYTE_LANES` determines the number of byte lanes in the module, either set to `S_KEEP_WIDTH` if `S_KEEP_ENABLE` is true, or defaulting to 1. It is used to calculate byte size, bus expansion, and ensure data width compatibility."
+  },
+  {
+    "name": "mem",
+    "description": "The signal `mem` is a 128-entry, 32-bit wide memory array. It supports synchronous writes on clock edges when `wr` is high, storing data (`wdata`) at the address (`addr`). Additionally, it allows conditional reading, outputting either `wdata` or the memory content at `addr` based on `wr`."
+  },
+  {
+    "name": "fio_icb_cmd_addr",
+    "description": "The `fio_icb_cmd_addr` signal carries the 32-bit memory address for ICB transactions to the FIO peripheral interface, routing read/write commands to specific addresses based on region indication and enable signals within the bus arbitration framework. (50 words)"
+  },
+  {
+    "name": "sr_sl_data_in",
+    "description": "The signal `sr_sl_data_in` is a serial input data line used for shifting data into a register. It is appended to the least significant bit of `sl_data_revr` when `sr_sl_load_in` is false, enabling serial data transfer in shift operations."
+  },
+  {
+    "name": "clk_aon",
+    "description": "The `clk_aon` signal is a direct, combinational replica of the main clock (`clk`), providing an always-on clock source for critical sub-modules (e.g., TCMs) unaffected by activity-based gating, ensuring continuous operation during low-power modes. (49 words)"
+  },
+  {
+    "name": "Reset_n",
+    "description": "Reset_n is an active-low asynchronous reset signal initializing the module and its submodules (Dispose, DCT) to a known state when asserted low, independent of the clock."
+  },
+  {
+    "name": "clk",
+    "description": "clk is the clock input that synchronizes the reset signal propagation. It triggers the shift register (RST_SYNC_LEVEL stages) to propagate active-low reset (rst_n) into synchronized outputs, ensuring timed reset distribution to core/ITCM/DTCM/AON domains. (49 words)"
+  },
+  {
+    "name": "B_Reg",
+    "description": "B_Reg is a 15-bit register storing processed blue color data derived from shifted/summed input B when enabled (En_In). It resets to 0, retains its value otherwise, and feeds into the Sum calculation when the system is active. (49 words)"
+  },
+  {
+    "name": "sl_rx_transfer_eni",
+    "description": "The signal `sl_rx_transfer_eni` is an input that enables the RX transfer in the slave device. It is synchronized with the clock domain in `i_slrxtranseren` to ensure stable operation, contributing to the proper handling of data transfer and synchronization between master and slave devices."
+  },
+  {
+    "name": "ir_rs1en",
+    "description": "The `ir_rs1en` signal enables RS1 register access for JALR instructions, impacting dependency checks and IR validity to manage pipeline stalls and register file enablement. (29 words)"
+  },
+  {
+    "name": "s_axis_tdest",
+    "description": "The `s_axis_tdest` signal specifies the destination identifier for the data stream in the AXI4-Stream interface. It is passed directly from the source to the destination, ensuring the data is routed to the correct endpoint. This signal is crucial for multi-destination data transfer scenarios."
+  },
+  {
+    "name": "gg",
+    "description": "gg is a 1-bit register storing the inverse of Coin_return on each rising clock edge. It drives hh's value and is used in calculating ii, enabling sequential logic operations within the module."
+  },
+  {
+    "name": "ROW2_0",
+    "description": "ROW2_0 is a state in a display initialization state machine, triggering output of the first 8-bit segment (bits 127:120) of the second display row's data from the row_2 register. It follows ROW2_ADDR and precedes subsequent row data states."
+  },
+  {
+    "name": "s_axis_tvalid_reg",
+    "description": "The signal `s_axis_tvalid_reg` is a register initialized to zero, used to store the validity of incoming data. On each clock cycle, it captures the validity of input data and can be selectively routed to output validity signals. It is reset to zero when a reset signal is active."
+  },
+  {
+    "name": "rx_fifo",
+    "description": "The `rx_fifo` signal represents a FIFO buffer that synchronizes and transfers received data from the `rx_clk` domain to the `logic_clk` domain, managing data flow with control signals and providing status indicators for overflow, bad frames, and good frames."
+  },
+  {
+    "name": "rst",
+    "description": "The `rst` signal is an active-high reset that initializes the module by clearing validity flags and resetting internal registers, ensuring a known state for data transfer operations in the AXI Stream interface."
+  },
+  {
+    "name": "ifuerr_icb_cmd_beat",
+    "description": "The 2-bit ifuerr_icb_cmd_beat signal indicates error conditions in the instruction fetch unit's (IFU) interconnect command beats, split from a shared bus to isolate and manage IFU-specific error signaling. (49 words)"
+  },
+  {
+    "name": "Data_1_Sub_6_E",
+    "description": "Data_1_Sub_6_E is a signed register/output in a multi-stage arithmetic data path. It stores subtraction results (Data_Sub_E) for stage 1, bit position 6, line E, activated when selector 'Sele' is 01. Part of a dynamic ALU routing system handling signed operations across stages. (49 words)"
+  },
+  {
+    "name": "aluop",
+    "description": "The `aluop` signal is a 2-bit control signal that determines the operation to be performed by the ALU. It is set based on the `opcode` and is used to control arithmetic or logical operations, such as addition, subtraction, or comparison, during instruction execution."
+  }
+]

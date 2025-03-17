@@ -1,0 +1,602 @@
+[
+  {
+    "id": 140314947149248,
+    "code": "assign alu_req_alu_slt = alu_i_info[0+3-1+1+1-1+1+1-1+1+1-1+1+1-1+1+1-1+1+1-1+1+1-1+1+1-1+1+1-1+1+1-1:0+3-1+1+1-1+1+1-1+1+1-1+1+1-1+1+1-1+1+1-1+1+1-1+1+1-1+1+1-1+1];",
+    "type": "Assign",
+    "description": "The code assigns `alu_req_alu_slt` to a specific bit of `alu_i_info` using a complex index computed via repeated arithmetic operations on constants. The result is a single bit selected from `alu_i_info` at a position derived from the evaluated expression."
+  },
+  {
+    "id": 140674134659856,
+    "code": "clk_outbuf_diff_inst\n(\n  .i(output_clk),\n  .o(output_clk_p),\n  .obar(output_clk_n)\n)",
+    "type": "Instance",
+    "description": "The Verilog module `clk_outbuf_diff_inst` takes a single clock input `output_clk` and produces two differential outputs: a positive clock signal `output_clk_p` and its inverted counterpart `output_clk_n`. This is commonly used for differential clock signaling in high-speed designs."
+  },
+  {
+    "id": 140674205395344,
+    "code": "assign udp_rx_ip_header_checksum = ip_rx_ip_header_checksum;",
+    "type": "Assign",
+    "description": "The Verilog code assigns the value of `ip_rx_ip_header_checksum` directly to `udp_rx_ip_header_checksum`, effectively copying the IP header checksum from one signal to another."
+  },
+  {
+    "id": 140674214586000,
+    "code": "assign ms_data_fr_core[80:0] = { ms_osc_transfer_en, 1'b1, ms_tx_transfer_en, 2'b11, ms_rx_transfer_en, ms_rx_dll_lock, 5'b11111, ms_tx_dcc_cal_done, 1'b0, 1'b1, ms_external_cntl_65_8[57:0], 1'b1, 1'b0, 1'b1, ms_external_cntl_4_0[4:0] };",
+    "type": "Assign",
+    "description": "The Verilog code concatenates multiple signals and constants into an 81-bit vector `ms_data_fr_core`. It includes control bits, status flags, and a 58-bit segment from `ms_external_cntl_65_8`, followed by additional fixed bits and a 5-bit segment from `ms_external_cntl_4_0`."
+  },
+  {
+    "id": 140674134914112,
+    "code": "mac_ctrl_tx_inst\n(\n  .clk(tx_clk),\n  .rst(tx_rst),\n  .s_axis_tdata(tx_axis_tdata),\n  .s_axis_tkeep(tx_axis_tkeep),\n  .s_axis_tvalid(tx_axis_tvalid),\n  .s_axis_tready(tx_axis_tready),\n  .s_axis_tlast(tx_axis_tlast),\n  .s_axis_tid(0),\n  .s_axis_tdest(0),\n  .s_axis_tuser(tx_axis_tuser_in),\n  .m_axis_tdata(tx_axis_tdata_int),\n  .m_axis_tkeep(tx_axis_tkeep_int),\n  .m_axis_tvalid(tx_axis_tvalid_int),\n  .m_axis_tready(tx_axis_tready_int),\n  .m_axis_tlast(tx_axis_tlast_int),\n  .m_axis_tid(),\n  .m_axis_tdest(),\n  .m_axis_tuser(tx_axis_tuser_int),\n  .mcf_valid(tx_mcf_valid),\n  .mcf_ready(tx_mcf_ready),\n  .mcf_eth_dst(tx_mcf_eth_dst),\n  .mcf_eth_src(tx_mcf_eth_src),\n  .mcf_eth_type(tx_mcf_eth_type),\n  .mcf_opcode(tx_mcf_opcode),\n  .mcf_params(tx_mcf_params),\n  .mcf_id(0),\n  .mcf_dest(0),\n  .mcf_user(0),\n  .tx_pause_req(tx_pause_req_int),\n  .tx_pause_ack(tx_pause_ack),\n  .stat_tx_mcf(stat_tx_mcf)\n)",
+    "type": "Instance",
+    "description": "The `mac_ctrl_tx_inst` module handles Ethernet frame transmission, interfacing with AXI4-Stream for data input/output and managing flow control via pause requests/acknowledgments. It processes metadata (e.g., source/destination MAC, type, opcode) and ensures valid frame transmission while monitoring status and flow control signals."
+  },
+  {
+    "id": 140674212246832,
+    "code": "\nalways @(posedge tx_clk or posedge tx_rst) begin\n  if(tx_rst) begin\n    rx_lfc_ack_sync_reg_1 <= 1'b0;\n  end else begin\n    rx_lfc_ack_sync_reg_1 <= (tx_lfc_pause_en)? tx_pause_ack : 0;\n  end\nend\n",
+    "type": "Always",
+    "description": "The Verilog code synchronizes the `rx_lfc_ack_sync_reg_1` signal to the `tx_clk` clock. On a reset (`tx_rst`), it clears the register. Otherwise, it updates the register with `tx_pause_ack` if `tx_lfc_pause_en` is enabled; otherwise, it sets the register to 0."
+  },
+  {
+    "id": 140007988751600,
+    "code": "\nalways @(posedge Clock or negedge Reset_n) begin\n  if(!Reset_n) Counter <= 3'b0; \n  else if(En_Out) Counter <= Counter + 1'b1; \n  else if(Counter == 3'b111) Counter <= 3'b0; \n  else Counter <= Counter;\nend\n",
+    "type": "Always",
+    "description": "The Verilog code implements a 3-bit counter with asynchronous active-low reset. It increments on clock edges when enabled (En_Out), resets to 0 upon reaching 7 when disabled, and holds its value otherwise."
+  },
+  {
+    "id": 140674205141424,
+    "code": "rgmii_phy_if_inst\n(\n  .clk(gtx_clk),\n  .clk90(gtx_clk90),\n  .rst(gtx_rst),\n  .mac_gmii_rx_clk(rx_clk),\n  .mac_gmii_rx_rst(rx_rst),\n  .mac_gmii_rxd(mac_gmii_rxd),\n  .mac_gmii_rx_dv(mac_gmii_rx_dv),\n  .mac_gmii_rx_er(mac_gmii_rx_er),\n  .mac_gmii_tx_clk(tx_clk),\n  .mac_gmii_tx_rst(tx_rst),\n  .mac_gmii_tx_clk_en(mac_gmii_tx_clk_en),\n  .mac_gmii_txd(mac_gmii_txd),\n  .mac_gmii_tx_en(mac_gmii_tx_en),\n  .mac_gmii_tx_er(mac_gmii_tx_er),\n  .phy_rgmii_rx_clk(rgmii_rx_clk),\n  .phy_rgmii_rxd(rgmii_rxd),\n  .phy_rgmii_rx_ctl(rgmii_rx_ctl),\n  .phy_rgmii_tx_clk(rgmii_tx_clk),\n  .phy_rgmii_txd(rgmii_txd),\n  .phy_rgmii_tx_ctl(rgmii_tx_ctl),\n  .speed(speed)\n)",
+    "type": "Instance",
+    "description": "The Verilog module `rgmii_phy_if_inst` connects a MAC interface to a PHY interface using RGMII (Reduced Gigabit Media Independent Interface). It handles clock, reset, data, and control signals for both receive and transmit paths, supporting different speeds for Ethernet communication."
+  },
+  {
+    "id": 140007948633344,
+    "code": "assign i2c_sda_i = i2c_sda;",
+    "type": "Assign",
+    "description": "The code continuously assigns the value of `i2c_sda` to the input signal `i2c_sda_i`, connecting them for I²C communication."
+  },
+  {
+    "id": 140674205309632,
+    "code": "\nalways @(posedge clk) begin\n  s_axis_tdata_reg <= s_axis_tdata;\n  s_axis_tkeep_reg <= s_axis_tkeep;\n  s_axis_tvalid_reg <= s_axis_tvalid;\n  s_axis_tlast_reg <= s_axis_tlast;\n  s_axis_tid_reg <= s_axis_tid;\n  s_axis_tdest_reg <= s_axis_tdest;\n  s_axis_tuser_reg <= s_axis_tuser;\n  select_reg <= select;\n  for(i=0; i<M_COUNT; i=i+1) begin\n    m_axis_tdata_reg[i*DATA_WIDTH:i*DATA_WIDTH+DATA_WIDTH] <= s_axis_tdata_reg[select_reg[i*CL_S_COUNT:i*CL_S_COUNT+CL_S_COUNT]*DATA_WIDTH:select_reg[i*CL_S_COUNT:i*CL_S_COUNT+CL_S_COUNT]*DATA_WIDTH+DATA_WIDTH];\n    m_axis_tkeep_reg[i*KEEP_WIDTH:i*KEEP_WIDTH+KEEP_WIDTH] <= s_axis_tkeep_reg[select_reg[i*CL_S_COUNT:i*CL_S_COUNT+CL_S_COUNT]*KEEP_WIDTH:select_reg[i*CL_S_COUNT:i*CL_S_COUNT+CL_S_COUNT]*KEEP_WIDTH+KEEP_WIDTH];\n    m_axis_tvalid_reg[i] <= s_axis_tvalid_reg[select_reg[i*CL_S_COUNT:i*CL_S_COUNT+CL_S_COUNT]];\n    m_axis_tlast_reg[i] <= s_axis_tlast_reg[select_reg[i*CL_S_COUNT:i*CL_S_COUNT+CL_S_COUNT]];\n    m_axis_tid_reg[i*ID_WIDTH:i*ID_WIDTH+ID_WIDTH] <= s_axis_tid_reg[select_reg[i*CL_S_COUNT:i*CL_S_COUNT+CL_S_COUNT]*ID_WIDTH:select_reg[i*CL_S_COUNT:i*CL_S_COUNT+CL_S_COUNT]*ID_WIDTH+ID_WIDTH];\n    m_axis_tdest_reg[i*DEST_WIDTH:i*DEST_WIDTH+DEST_WIDTH] <= s_axis_tdest_reg[select_reg[i*CL_S_COUNT:i*CL_S_COUNT+CL_S_COUNT]*DEST_WIDTH:select_reg[i*CL_S_COUNT:i*CL_S_COUNT+CL_S_COUNT]*DEST_WIDTH+DEST_WIDTH];\n    m_axis_tuser_reg[i*USER_WIDTH:i*USER_WIDTH+USER_WIDTH] <= s_axis_tuser_reg[select_reg[i*CL_S_COUNT:i*CL_S_COUNT+CL_S_COUNT]*USER_WIDTH:select_reg[i*CL_S_COUNT:i*CL_S_COUNT+CL_S_COUNT]*USER_WIDTH+USER_WIDTH];\n  end\n  if(rst) begin\n    s_axis_tvalid_reg <= { S_COUNT{ 1'b0 } };\n    m_axis_tvalid_reg <= { S_COUNT{ 1'b0 } };\n    select_reg <= { M_COUNT * CL_S_COUNT{ 1'b0 } };\n  end \nend\n",
+    "type": "Always",
+    "description": "This Verilog code captures and processes data on the clock's rising edge. It registers input signals, selects and assigns subsets of these signals to output registers based on a selection index, and resets specific registers to zero when a reset signal is active."
+  },
+  {
+    "id": 140674212247552,
+    "code": "\nalways @(posedge rx_clk or posedge rx_rst) begin\n  if(rx_rst) begin\n    tx_lfc_req_sync_reg_1 <= 1'b0;\n  end else begin\n    tx_lfc_req_sync_reg_1 <= rx_lfc_req;\n  end\nend\n",
+    "type": "Always",
+    "description": "This Verilog code synchronizes the `rx_lfc_req` signal to the `rx_clk` clock domain. On a rising edge of `rx_clk` or `rx_rst`, if `rx_rst` is high, `tx_lfc_req_sync_reg_1` is reset to 0; otherwise, it takes the value of `rx_lfc_req`."
+  },
+  {
+    "id": 140314937687312,
+    "code": "assign rst_sync_n = (test_mode)? rst_n : rst_sync_r[2 - 1];",
+    "type": "Assign",
+    "description": "The code conditionally assigns `rst_sync_n`: in test mode, it uses `rst_n`; otherwise, it selects the second bit of `rst_sync_r` for synchronized reset."
+  },
+  {
+    "id": 140674214587200,
+    "code": "assign odat1_adap = (jtag_intest)? rx_reg[3] : odat1_aib;",
+    "type": "Assign",
+    "description": "The code assigns `odat1_adap` the value of `rx_reg[3]` if `jtag_intest` is true; otherwise, it assigns `odat1_adap` the value of `odat1_aib`. This is a conditional assignment using a ternary operator."
+  },
+  {
+    "id": 140674233587840,
+    "code": "aib_sr_ms\n(\n  .osc_clk(osc_clk),\n  .ms_data_fr_core(ms_data_fr_core[80:0]),\n  .ms_data_to_core(ms_data_to_core[80:0]),\n  .sr_ms_data_out(sr_ms_data_out),\n  .sr_ms_load_out(sr_ms_load_out),\n  .sr_ms_data_in(srd_in),\n  .sr_ms_load_in(srl_in),\n  .sr_ms_clk_in(sr_clk_in),\n  .ms_nsl(ms_nsl),\n  .atpg_mode(1'b0),\n  .reset_n(ms_config_done)\n)",
+    "type": "Instance",
+    "description": "The `aib_sr_ms` module interfaces with an oscillator clock (`osc_clk`) and handles 81-bit data exchanges (`ms_data_fr_core`, `ms_data_to_core`) between the core and shift register. It manages shift register data and load signals (`sr_ms_data_out`, `sr_ms_load_out`, `sr_ms_data_in`, `sr_ms_load_in`) with a clock input (`sr_clk_in`). Reset and mode signals (`ms_nsl`, `atpg_mode`, `reset_n`) are also processed."
+  },
+  {
+    "id": 140674137561120,
+    "code": "assign m_axis_tkeep = axis_tkeep[LENGTH];",
+    "type": "Assign",
+    "description": "The Verilog code assigns the value of `axis_tkeep[LENGTH]` to `m_axis_tkeep`. This represents a direct connection or multiplexing of a specific bit or slice (`LENGTH`) from the `axis_tkeep` signal to the `m_axis_tkeep` output signal."
+  },
+  {
+    "id": 140007948520912,
+    "code": "\nalways @(posedge Clock or negedge Reset_n) begin\n  if(!Reset_n) Counter <= 3'b0; \n  else if(Counter == 3'b111) Counter <= 3'b0; \n  else if(En_In) Counter <= Counter + 3'b1; \n  else Counter <= Counter;\nend\n",
+    "type": "Always",
+    "description": "This Verilog code implements a 3-bit asynchronous active-low reset counter. It resets to 0 on ~Reset_n, increments on Clock edge when En_In is high, and wraps to 0 after reaching 7."
+  },
+  {
+    "id": 140007977819008,
+    "code": "\nalways @(posedge Clock or negedge Reset_n) begin\n  if(!Reset_n) En_Out <= 1'b0; \n  else if(Start) En_Out <= 1'b1; \n  else if((Counter == 3'b111) && !Start) En_Out <= 1'b0; \n  else if(Counter == 3'b111) En_Out <= 1'b0; \n  else En_Out <= En_Out;\nend\n",
+    "type": "Always",
+    "description": "The module resets En_Out to 0 when Reset_n is low. It sets En_Out to 1 on Start assertion. When Counter reaches 7 (3'b111) and Start is inactive, En_Out returns to 0. Operates on Clock's rising edges. (50 words)"
+  },
+  {
+    "id": 140314943754736,
+    "code": "u_biu_clkgate\n(\n  .clk_in(clk),\n  .test_mode(test_mode),\n  .clock_en(biu_clk_en),\n  .clk_out(clk_core_biu)\n)",
+    "type": "Instance",
+    "description": "This Verilog code instantiates a clock gating cell (u_biu_clkgate) that gates the input clock (clk_in) using clock_en, controlled by test_mode, and outputs the gated clock (clk_core_biu). It bypasses gating in test mode. (28 words)"
+  },
+  {
+    "id": 140007997875040,
+    "code": "\nalways @(posedge Clock or negedge Reset_n) begin\n  if(!Reset_n) R_En <= 1'b0; \n  else if(R_Address == 12'd2559) begin\n    if((W_Address == 12'd2559) && W_En) R_En <= 1'b1; \n    else R_En <= 1'b0;\n  end else R_En <= R_En;\nend\n",
+    "type": "Always",
+    "description": "The code resets R_En to 0 when Reset_n is low. If R_Address is 2559, R_En becomes 1 only if W_Address matches and W_En is active; else 0. Otherwise, R_En holds, triggered by Clock's rising edge or Reset_n's falling edge. (49 words)"
+  },
+  {
+    "id": 140674216371952,
+    "code": "assign data_out = dff2;",
+    "type": "Assign",
+    "description": "This Verilog code assigns the value stored in the flip-flop `dff2` to the output signal `data_out` continuously using a concurrent assignment."
+  },
+  {
+    "id": 140314948651680,
+    "code": "assign prdt_pc_add_op2 = dec_bjp_imm[32-1:0];",
+    "type": "Assign",
+    "description": "Assigns the 32-bit value of dec_bjp_imm (bits [31:0]) to prdt_pc_add_op2, likely for PC addition in a processor's branch/jump operations."
+  },
+  {
+    "id": 140674134870304,
+    "code": "\nalways @(posedge rx_clk) begin\n  rx_prescale <= rx_prescale + 3'd1;\nend\n",
+    "type": "Always",
+    "description": "This Verilog code increments the `rx_prescale` register by 1 on every rising edge of the `rx_clk` signal. The increment value is limited to 3 bits, ensuring `rx_prescale` wraps around after reaching its maximum value."
+  },
+  {
+    "id": 140007971468688,
+    "code": "assign Out_Data_4 = Data_0_Add_7_A - Data_1_Add_6_A - Data_2_Add_5_A + Data_3_Add_4_A;",
+    "type": "Assign",
+    "description": "The code continuously assigns Out_Data_4 as the result of subtracting Data_1_Add_6_A and Data_2_Add_5_A from Data_0_Add_7_A, then adding Data_3_Add_4_A."
+  },
+  {
+    "id": 140007949737408,
+    "code": "\nalways @(posedge clk or negedge rst_n) begin\n  if(!rst_n) begin\n    add_flag <= 1'b0;\n  end else if(nedge) begin\n    add_flag <= 1'b1;\n  end else if(end_cnt) begin\n    add_flag <= 1'b0;\n  end \nend\n",
+    "type": "Always",
+    "description": "This Verilog module asynchronously resets `add_flag` to 0 when `rst_n` is low. On `clk`'s rising edge, it sets `add_flag` to 1 if `nedge` is true, then resets it to 0 when `end_cnt` is asserted."
+  },
+  {
+    "id": 140674205307280,
+    "code": "rx_shift_0_ckmux\n(\n  .mux_in0(odat_asyn_adap),\n  .mux_in1(rx_reg[1]),\n  .mux_sel(jtag_tx_scanen_in),\n  .mux_out(rx_shift[0])\n)",
+    "type": "Instance",
+    "description": "The Verilog module `rx_shift_0_ckmux` is a 2-to-1 multiplexer that selects between `odat_asyn_adap` (input 0) and `rx_reg[1]` (input 1) based on the control signal `jtag_tx_scanen_in`, and outputs the selected value to `rx_shift[0]`."
+  },
+  {
+    "id": 140674205387040,
+    "code": "assign udp_rx_ip_flags = ip_rx_ip_flags;",
+    "type": "Assign",
+    "description": "The Verilog code assigns the value of `ip_rx_ip_flags` directly to `udp_rx_ip_flags` using a continuous assignment. This effectively connects the two signals, making `udp_rx_ip_flags` mirror the value of `ip_rx_ip_flags` in real-time."
+  },
+  {
+    "id": 140674216371712,
+    "code": "i_sloscxferen_sync\n(\n  .clk(osc_clk),\n  .rst_n(ms_config_done_sync),\n  .data_in(sl_osc_transfer_eni),\n  .data_out(sl_osc_transfer_en_sync)\n)",
+    "type": "Instance",
+    "description": "The `i_sloscxferen_sync` module synchronizes the `sl_osc_transfer_eni` signal to the `osc_clk` domain, using `ms_config_done_sync` as a reset. The synchronized output is `sl_osc_transfer_en_sync`. This ensures signal stability across clock domains."
+  },
+  {
+    "id": 140674205190096,
+    "code": "assign m_axis_tuser = (USER_ENABLE)? m_axis_tuser_reg : { USER_WIDTH{ 1'b0 } };",
+    "type": "Assign",
+    "description": "The code assigns `m_axis_tuser` the value of `m_axis_tuser_reg` if `USER_ENABLE` is true; otherwise, it sets `m_axis_tuser` to a zero-filled vector of width `USER_WIDTH`."
+  },
+  {
+    "id": 140007948522064,
+    "code": "\nalways @(posedge Clock or negedge Reset_n) begin\n  if(!Reset_n) Row_Counter <= 3'b0; \n  else if((R_Address[2:0] == 3'b111) && R_En) begin\n    if(Row_Counter == 3'b111) Row_Counter <= 3'b0; \n    else Row_Counter <= Row_Counter + 1'b1;\n  end else Row_Counter <= Row_Counter;\nend\n",
+    "type": "Always",
+    "description": "This Verilog module implements a 3-bit Row_Counter reset by active-low Reset_n. When R_Address is 7 and R_En is high, it increments (wrapping to 0 after 7) on rising Clock edges. Else, holds current value. (38 words)"
+  },
+  {
+    "id": 140674205308096,
+    "code": "act\n(\n  conv_op,\n  relu_op\n)",
+    "type": "Instance",
+    "description": "The Verilog module `act` takes two inputs, `conv_op` and `relu_op`, and performs an activation operation, likely involving convolution and ReLU (Rectified Linear Unit) activation functions. The exact implementation details are not provided in the snippet."
+  },
+  {
+    "id": 140674211434608,
+    "code": "aib_bsr_red_wrap\n(\n  .async_dat_red(async_dat_in1_jtag_out),\n  .idata0_red(idata0_in1_jtag_out),\n  .idata1_red(idata1_in1_jtag_out),\n  .jtag_clkdr_outn(jtag_clkdr_outn),\n  .idata1_out(idat1_aib),\n  .idata0_out(idat0_aib),\n  .oclk_in(oclk_out),\n  .oclkb_in(oclkb_out),\n  .itxen_out(itxen_aib),\n  .async_data_out(async_data_aib),\n  .irxen_out(irxen_aib[2:0]),\n  .jtag_intest(jtag_intest),\n  .jtag_rstb_en(jtag_rstb_en),\n  .dig_rstb_aib(dig_rstb_aib),\n  .dig_rstb_adap(dig_rstb),\n  .odat_async_in0(odat_async_aib),\n  .odat1_in0(odat1_aib),\n  .odat0_in0(odat0_aib),\n  .shift_en(shift_en),\n  .idataselb_out(idataselb_aib),\n  .iddren_out(iddren_aib),\n  .odat0_out(odat0_out_pnr),\n  .odat1_out(odat1_out_pnr),\n  .odat_async_out(odat_async_out_pnr),\n  .async_dat_in0(async_dat_in0),\n  .async_dat_in1(async_dat_in1),\n  .idata0_in0(idata0_in0),\n  .idata0_in1(idata0_in1),\n  .idata1_in0(idata1_in0),\n  .idata1_in1(idata1_in1),\n  .idataselb_in0(idataselb_in0),\n  .idataselb_in1(idataselb_in1),\n  .iddren_in0(iddren_in0),\n  .iddren_in1(iddren_in1),\n  .irxen_in0(irxen_in0[2:0]),\n  .irxen_in1(irxen_in1[2:0]),\n  .itxen_in0(itxen_in0),\n  .itxen_in1(itxen_in1),\n  .odat0_in1(odat0_in1),\n  .odat1_in1(odat1_in1),\n  .odat_async_in1(odat_async_in1),\n  .jtag_clkdr_out(),\n  .jtag_rx_scan_out(jtag_rx_scan_out),\n  .jtag_clkdr_in(jtag_clkdr_in),\n  .jtag_mode_in(jtag_mode_in),\n  .jtag_rstb(jtag_rstb),\n  .jtag_tx_scan_in(jtag_tx_scan_in),\n  .jtag_tx_scanen_in(jtag_tx_scanen_in)\n)",
+    "type": "Instance",
+    "description": "The `aib_bsr_red_wrap` module integrates and routes various data, clock, and control signals between JTAG and AIB (Advanced Interface Bus) interfaces, handling asynchronous and synchronous data, clock domains, and test-related functionalities for system-level communication and testing."
+  },
+  {
+    "id": 140314949491152,
+    "code": "u_biu_icb_arbt\n(\n  .o_icb_cmd_valid(arbt_icb_cmd_valid),\n  .o_icb_cmd_ready(arbt_icb_cmd_ready),\n  .o_icb_cmd_read(arbt_icb_cmd_read),\n  .o_icb_cmd_addr(arbt_icb_cmd_addr),\n  .o_icb_cmd_wdata(arbt_icb_cmd_wdata),\n  .o_icb_cmd_wmask(arbt_icb_cmd_wmask),\n  .o_icb_cmd_burst(arbt_icb_cmd_burst),\n  .o_icb_cmd_beat(arbt_icb_cmd_beat),\n  .o_icb_cmd_excl(arbt_icb_cmd_excl),\n  .o_icb_cmd_lock(arbt_icb_cmd_lock),\n  .o_icb_cmd_size(arbt_icb_cmd_size),\n  .o_icb_cmd_usr(arbt_icb_cmd_usr),\n  .o_icb_rsp_valid(arbt_icb_rsp_valid),\n  .o_icb_rsp_ready(arbt_icb_rsp_ready),\n  .o_icb_rsp_err(arbt_icb_rsp_err),\n  .o_icb_rsp_excl_ok(arbt_icb_rsp_excl_ok),\n  .o_icb_rsp_rdata(arbt_icb_rsp_rdata),\n  .o_icb_rsp_usr(1'b0),\n  .i_bus_icb_cmd_ready(arbt_bus_icb_cmd_ready),\n  .i_bus_icb_cmd_valid(arbt_bus_icb_cmd_valid),\n  .i_bus_icb_cmd_read(arbt_bus_icb_cmd_read),\n  .i_bus_icb_cmd_addr(arbt_bus_icb_cmd_addr),\n  .i_bus_icb_cmd_wdata(arbt_bus_icb_cmd_wdata),\n  .i_bus_icb_cmd_wmask(arbt_bus_icb_cmd_wmask),\n  .i_bus_icb_cmd_burst(arbt_bus_icb_cmd_burst),\n  .i_bus_icb_cmd_beat(arbt_bus_icb_cmd_beat),\n  .i_bus_icb_cmd_excl(arbt_bus_icb_cmd_excl),\n  .i_bus_icb_cmd_lock(arbt_bus_icb_cmd_lock),\n  .i_bus_icb_cmd_size(arbt_bus_icb_cmd_size),\n  .i_bus_icb_cmd_usr(arbt_bus_icb_cmd_usr),\n  .i_bus_icb_rsp_valid(arbt_bus_icb_rsp_valid),\n  .i_bus_icb_rsp_ready(arbt_bus_icb_rsp_ready),\n  .i_bus_icb_rsp_err(arbt_bus_icb_rsp_err),\n  .i_bus_icb_rsp_excl_ok(arbt_bus_icb_rsp_excl_ok),\n  .i_bus_icb_rsp_rdata(arbt_bus_icb_rsp_rdata),\n  .i_bus_icb_rsp_usr(),\n  .clk(clk),\n  .rst_n(rst_n)\n)",
+    "type": "Instance",
+    "description": "This Verilog module instantiates an ICB arbiter (u_biu_icb_arbt), connecting internal bus command/response signals to external ICB interfaces. It arbitrates between masters, managing signals like addresses, data, burst transactions, and protocol control, with clock/reset synchronization."
+  },
+  {
+    "id": 140674134999312,
+    "code": "assign m_axis_tvalid = !ll_src_rdy_in_n;",
+    "type": "Assign",
+    "description": "The Verilog code assigns the signal `m_axis_tvalid` the logical negation of `ll_src_rdy_in_n`. This means `m_axis_tvalid` will be high (1) when `ll_src_rdy_in_n` is low (0), and vice versa. It is commonly used to indicate valid data in AXI stream interfaces."
+  },
+  {
+    "id": 140314938147136,
+    "code": "assign { ifuerr_icb_cmd_valid, ppi_icb_cmd_valid, clint_icb_cmd_valid, plic_icb_cmd_valid, fio_icb_cmd_valid, mem_icb_cmd_valid } = splt_bus_icb_cmd_valid;",
+    "type": "Assign",
+    "description": "Unpacks the split bus command valid signal into individual valid signals for IFUERR, PPI, CLINT, PLIC, FIO, and MEM ICB interfaces."
+  },
+  {
+    "id": 140674205804656,
+    "code": "aliaspor\n(\n  .sig_red(iopad_dev_porrdcy),\n  .sig_in(iopad_dev_por)\n)",
+    "type": "Instance",
+    "description": "The Verilog module `aliaspor` connects two signals: `sig_red` is linked to `iopad_dev_porrdcy`, and `sig_in` is linked to `iopad_dev_por`. This module acts as a simple signal alias or mapping between the specified input and output signals."
+  },
+  {
+    "id": 140007948035824,
+    "code": "\nalways @(posedge CLOCK or negedge rst_n) begin\n  if(rst_n == 1'b0) begin\n    LCD_DATA <= 0;\n  end else if(write_flag) begin\n    case(n_state)\n      IDLE: LCD_DATA <= 8'hxx;\n      SET_FUNCTION: LCD_DATA <= 8'h38;\n      DISP_OFF: LCD_DATA <= 8'h08;\n      DISP_CLEAR: LCD_DATA <= 8'h01;\n      ENTRY_MODE: LCD_DATA <= 8'h06;\n      DISP_ON: LCD_DATA <= 8'h0c;\n      ROW1_ADDR: LCD_DATA <= 8'h80;\n      ROW1_0: LCD_DATA <= row_1[127:120];\n      ROW1_1: LCD_DATA <= row_1[119:112];\n      ROW1_2: LCD_DATA <= row_1[111:104];\n      ROW1_3: LCD_DATA <= row_1[103:96];\n      ROW1_4: LCD_DATA <= row_1[95:88];\n      ROW1_5: LCD_DATA <= row_1[87:80];\n      ROW1_6: LCD_DATA <= row_1[79:72];\n      ROW1_7: LCD_DATA <= row_1[71:64];\n      ROW1_8: LCD_DATA <= row_1[63:56];\n      ROW1_9: LCD_DATA <= row_1[55:48];\n      ROW1_A: LCD_DATA <= row_1[47:40];\n      ROW1_B: LCD_DATA <= row_1[39:32];\n      ROW1_C: LCD_DATA <= row_1[31:24];\n      ROW1_D: LCD_DATA <= row_1[23:16];\n      ROW1_E: LCD_DATA <= row_1[15:8];\n      ROW1_F: LCD_DATA <= row_1[7:0];\n      ROW2_ADDR: LCD_DATA <= 8'hc0;\n      ROW2_0: LCD_DATA <= row_2[127:120];\n      ROW2_1: LCD_DATA <= row_2[119:112];\n      ROW2_2: LCD_DATA <= row_2[111:104];\n      ROW2_3: LCD_DATA <= row_2[103:96];\n      ROW2_4: LCD_DATA <= row_2[95:88];\n      ROW2_5: LCD_DATA <= row_2[87:80];\n      ROW2_6: LCD_DATA <= row_2[79:72];\n      ROW2_7: LCD_DATA <= row_2[71:64];\n      ROW2_8: LCD_DATA <= row_2[63:56];\n      ROW2_9: LCD_DATA <= row_2[55:48];\n      ROW2_A: LCD_DATA <= row_2[47:40];\n      ROW2_B: LCD_DATA <= row_2[39:32];\n      ROW2_C: LCD_DATA <= row_2[31:24];\n      ROW2_D: LCD_DATA <= row_2[23:16];\n      ROW2_E: LCD_DATA <= row_2[15:8];\n      ROW2_F: LCD_DATA <= row_2[7:0];\n      default: LCD_DATA = LCD_DATA;\n    endcase\n  end else LCD_DATA <= LCD_DATA;\nend\n",
+    "type": "Always",
+    "description": "This Verilog code manages LCD data output via a state machine. It resets LCD_DATA to 0 on rst_n low, then sets LCD_DATA based on n_state (e.g., commands like SET_FUNCTION, DISP_CLEAR) or partial row data (row_1/row_2 split into 8-bit segments) when write_flag is active."
+  },
+  {
+    "id": 140674214582352,
+    "code": "assign sl_data_syncrw[SL_LENGTH-1:0] = (sl_load)? sl_data_sync[SL_LENGTH-1:0] : \n                                       (sl_shift_en)? { sl_data_syncr[SL_LENGTH-2:0], sl_data_syncr[0] } : sl_data_syncr[SL_LENGTH-1:0];",
+    "type": "Assign",
+    "description": "The Verilog code assigns `sl_data_syncrw` based on three conditions: if `sl_load` is true, it loads `sl_data_sync`; if `sl_shift_en` is true, it shifts `sl_data_syncr` left by one bit; otherwise, it retains the value of `sl_data_syncr`."
+  },
+  {
+    "id": 140314949323232,
+    "code": "assign { ifu2biu_icb_cmd_ready, lsu2biu_icb_cmd_ready } = arbt_bus_icb_cmd_ready;",
+    "type": "Assign",
+    "description": "This Verilog assignment broadcasts the bus arbiter's ICB command ready signal to both the instruction fetch unit (ifu2biu_icb_cmd_ready) and load/store unit (lsu2biu_icb_cmd_ready), indicating bus availability. (36 words)"
+  },
+  {
+    "id": 140674205702752,
+    "code": "assign output_encoded = stage_enc[LEVELS - 1];",
+    "type": "Assign",
+    "description": "The code assigns the final encoded value from the last stage of an encoding process (`stage_enc[LEVELS - 1]`) to the output signal `output_encoded`. This represents the result of a multi-level encoding operation."
+  },
+  {
+    "id": 140674134661680,
+    "code": "assign rx_axis_tuser = rx_axis_tuser_int;",
+    "type": "Assign",
+    "description": "The Verilog code assigns the signal `rx_axis_tuser` the value of `rx_axis_tuser_int`, effectively connecting or copying the internal signal to the external one."
+  },
+  {
+    "id": 140674211389200,
+    "code": "assign add_ab = a + b;",
+    "type": "Assign",
+    "description": "The Verilog code assigns the sum of two inputs, `a` and `b`, to the output `add_ab` using a continuous assignment statement."
+  },
+  {
+    "id": 140674137366144,
+    "code": "\nalways @(posedge clk) begin\n  if(master_rst) begin\n    sel <= 0;\n    load_sr <= 0;\n    rst_m <= 0;\n    op_en <= 0;\n    global_rst <= 0;\n    end_op <= 0;\n  end else begin\n    if(((col_count + 1) % p != 0) && (row_count == p - 1) && (col_count == p * count + (p - 2)) && ce) begin\n      op_en <= 1;\n    end else begin\n      op_en <= 0;\n    end\n    if(ce) begin\n      if(nbgh_row_count == m / p) begin\n        end_op <= 1;\n      end else begin\n        end_op <= 0;\n      end\n      if(((col_count + 1) % p != 0) && (col_count == m - 2) && (row_count == p - 1)) begin\n        global_rst <= 1;\n      end else begin\n        global_rst <= 0;\n      end\n      if(((col_count + 1) % p == 0) && (count != m / p - 1) && (row_count != p - 1) || (col_count == m - 1) && (row_count == p - 1)) begin\n        rst_m <= 1;\n      end else begin\n        rst_m <= 0;\n      end\n      if(((col_count + 1) % p != 0) && (col_count == m - 2) && (row_count == p - 1)) begin\n        sel <= 2'b10;\n      end else begin\n        if((col_count % p == 0) && (count == m / p - 1) && (row_count != p - 1) || (col_count % p == 0) && (count != m / p - 1) && (row_count == p - 1)) begin\n          sel <= 2'b01;\n        end else begin\n          sel <= 2'b00;\n        end\n      end\n      if(((col_count + 1) % p == 0) && (count == m / p - 1) || ((col_count + 1) % p == 0) && (count != m / p - 1)) begin\n        load_sr <= 1;\n      end else begin\n        load_sr <= 0;\n      end\n    end \n  end\nend\n",
+    "type": "Always",
+    "description": "The Verilog code resets multiple signals (`sel`, `load_sr`, `rst_m`, `op_en`, `global_rst`, `end_op`) when `master_rst` is high. Otherwise, on the clock's rising edge and when `ce` is active, it updates these signals based on conditions involving `col_count`, `row_count`, `p`, `m`, and `count`."
+  },
+  {
+    "id": 140674205491296,
+    "code": "assign iddren_out = (shift_en)? iddren_in1 : iddren_in0;",
+    "type": "Assign",
+    "description": "The Verilog code assigns `iddren_out` the value of `iddren_in1` if `shift_en` is true (1), otherwise it assigns `iddren_in0`. This is a simple multiplexer controlled by `shift_en`."
+  },
+  {
+    "id": 140674214698240,
+    "code": "\nalways @(a or b) begin\n  if(a[N - 1] == b[N - 1]) begin\n    res[N-2:0] = a[N-2:0] + b[N-2:0];\n    res[N - 1] = a[N - 1];\n  end else if((a[N - 1] == 0) && (b[N - 1] == 1)) begin\n    if(a[N-2:0] > b[N-2:0]) begin\n      res[N-2:0] = a[N-2:0] - b[N-2:0];\n      res[N - 1] = 0;\n    end else begin\n      res[N-2:0] = b[N-2:0] - a[N-2:0];\n      if(res[N-2:0] == 0) res[N - 1] = 0; \n      else res[N - 1] = 1;\n    end\n  end else begin\n    if(a[N-2:0] > b[N-2:0]) begin\n      res[N-2:0] = a[N-2:0] - b[N-2:0];\n      if(res[N-2:0] == 0) res[N - 1] = 0; \n      else res[N - 1] = 1;\n    end else begin\n      res[N-2:0] = b[N-2:0] - a[N-2:0];\n      res[N - 1] = 0;\n    end\n  end\nend\n",
+    "type": "Always",
+    "description": "This Verilog code performs signed addition or subtraction of two N-bit numbers `a` and `b`. It checks the sign bits (`a[N-1]` and `b[N-1]`), adds or subtracts the magnitudes, and sets the sign of the result (`res`) based on the comparison of the magnitudes."
+  },
+  {
+    "id": 140314943753104,
+    "code": "assign arbt_bus_icb_rsp_ready = { ifu2biu_icb_rsp_ready, lsu2biu_icb_rsp_ready };",
+    "type": "Assign",
+    "description": "This Verilog line concatenates the ready signals from IFU and LSU interfaces (ifu2biu_icb_rsp_ready and lsu2biu_icb_rsp_ready) into a single bus-ready signal (arbt_bus_icb_rsp_ready) for the bus interface unit."
+  },
+  {
+    "id": 140674128906960,
+    "code": "\nalways @(*) begin\n  case(slosc_curst)\n    sl_wait_rx_osc_rdy: begin\n      if(is_slave & ms_osc_transfer_en_sync) slosc_nxst = sl_osc_xfer_en; \n      else slosc_nxst = sl_wait_rx_osc_rdy;\n    end\n    sl_osc_xfer_en: begin\n      slosc_nxst = sl_osc_xfer_en;\n    end\n    default: begin\n      slosc_nxst = sl_wait_rx_osc_rdy;\n    end\n  endcase\nend\n",
+    "type": "Always",
+    "description": "The Verilog code describes a state machine that updates the next state `slosc_nxst` based on the current state `slosc_curst`. If in `sl_wait_rx_osc_rdy` and conditions `is_slave` and `ms_osc_transfer_en_sync` are met, it transitions to `sl_osc_xfer_en`; otherwise, it stays or resets to `sl_wait_rx_osc_rdy`."
+  },
+  {
+    "id": 140674205123744,
+    "code": "\nalways @(posedge osc_clk or negedge reset_n_sync) begin\n  if(~reset_n_sync) begin\n    ms_count[6:0] <= 7'h0;\n    ms_load <= 1'b0;\n    ms_shift_en <= 1'b0;\n  end else begin\n    if(ms_count[6:0] == MS_LENGTH) begin\n      ms_count[6:0] <= 7'h0;\n      ms_load <= 1'b1;\n      ms_shift_en <= 1'b0;\n    end else begin\n      ms_count[6:0] <= ms_count[6:0] + 7'h01;\n      ms_load <= 1'b0;\n      ms_shift_en <= 1'b1;\n    end\n  end\nend\n",
+    "type": "Always",
+    "description": "The Verilog code is a synchronous counter controlled by `osc_clk` and `reset_n_sync`. On reset, `ms_count`, `ms_load`, and `ms_shift_en` are cleared. Otherwise, `ms_count` increments until it reaches `MS_LENGTH`, at which point it resets, `ms_load` is set, and `ms_shift_en` is cleared."
+  },
+  {
+    "id": 140314929141936,
+    "code": "assign biu_active = ifu2biu_icb_cmd_valid | lsu2biu_icb_cmd_valid | icb_buffer_active;",
+    "type": "Assign",
+    "description": "The `biu_active` signal is asserted if either the IFU's command is valid (`ifu2biu_icb_cmd_valid`), the LSU's command is valid (`lsu2biu_icb_cmd_valid`), or the ICB buffer is active (`icb_buffer_active`). This indicates the BIU's activity status. (50 words)"
+  },
+  {
+    "id": 140674134664656,
+    "code": "assign rx_axis_tkeep = rx_axis_tkeep_int;",
+    "type": "Assign",
+    "description": "The Verilog code assigns the value of the internal signal `rx_axis_tkeep_int` to the output signal `rx_axis_tkeep`, effectively connecting the two signals directly. This is a simple continuous assignment statement in Verilog."
+  },
+  {
+    "id": 140007948582400,
+    "code": "Send_8_Pixel\n(\n  .Clock(Clock),\n  .Reset_n(Reset_n),\n  .In_Data_0(D_Flip_Flop_2_to_Send_8_Pixel_0),\n  .In_Data_1(D_Flip_Flop_2_to_Send_8_Pixel_1),\n  .In_Data_2(D_Flip_Flop_2_to_Send_8_Pixel_2),\n  .In_Data_3(D_Flip_Flop_2_to_Send_8_Pixel_3),\n  .In_Data_4(D_Flip_Flop_2_to_Send_8_Pixel_4),\n  .In_Data_5(D_Flip_Flop_2_to_Send_8_Pixel_5),\n  .In_Data_6(D_Flip_Flop_2_to_Send_8_Pixel_6),\n  .In_Data_7(D_Flip_Flop_2_to_Send_8_Pixel_7),\n  .Out_Data(Out_Data),\n  .Start(End_Calc),\n  .En_Out(En_Out)\n)",
+    "type": "Instance",
+    "description": "This module sends 8 pixel data inputs (In_Data_0-7) serially via Out_Data, triggered by Start (End_Calc). It uses Clock and active-low Reset_n for synchronization, with En_Out enabling output transmission."
+  },
+  {
+    "id": 140674134663024,
+    "code": "assign m_ip_eth_dest_mac = ip_rx_ip_eth_dest_mac;",
+    "type": "Assign",
+    "description": "The Verilog code assigns the value of `ip_rx_ip_eth_dest_mac` to `m_ip_eth_dest_mac` using a continuous assignment. Essentially, `m_ip_eth_dest_mac` directly mirrors the value of `ip_rx_ip_eth_dest_mac` in real-time."
+  },
+  {
+    "id": 140674206026928,
+    "code": "assign clk_out = clk_in;",
+    "type": "Assign",
+    "description": "The Verilog code assigns the output signal `clk_out` to directly mirror the input signal `clk_in`. This creates a direct connection where `clk_out` has the same value as `clk_in` at all times."
+  },
+  {
+    "id": 140007948518944,
+    "code": "\nalways @(posedge Clock or negedge Reset_n) begin\n  if(!Reset_n) begin\n    Out_Data_0 <= 10'b0;\n    Out_Data_1 <= 10'b0;\n    Out_Data_2 <= 10'b0;\n    Out_Data_3 <= 10'b0;\n    Out_Data_4 <= 10'b0;\n    Out_Data_5 <= 10'b0;\n    Out_Data_6 <= 10'b0;\n    Out_Data_7 <= 10'b0;\n  end else begin\n    Out_Data_0 <= In_Data_0;\n    Out_Data_1 <= In_Data_1;\n    Out_Data_2 <= In_Data_2;\n    Out_Data_3 <= In_Data_3;\n    Out_Data_4 <= In_Data_4;\n    Out_Data_5 <= In_Data_5;\n    Out_Data_6 <= In_Data_6;\n    Out_Data_7 <= In_Data_7;\n  end\nend\n",
+    "type": "Always",
+    "description": "Implements 8 parallel 10-bit registers reset to 0 on active-low Reset_n. On clock edges, they track corresponding inputs (In_Data_0-7) when not reset. (28 words)"
+  },
+  {
+    "id": 140314929139536,
+    "code": "u_biu_icb_splt\n(\n  .i_icb_splt_indic(buf_icb_splt_indic),\n  .i_icb_cmd_valid(buf_icb_cmd_valid),\n  .i_icb_cmd_ready(buf_icb_cmd_ready),\n  .i_icb_cmd_read(buf_icb_cmd_read),\n  .i_icb_cmd_addr(buf_icb_cmd_addr),\n  .i_icb_cmd_wdata(buf_icb_cmd_wdata),\n  .i_icb_cmd_wmask(buf_icb_cmd_wmask),\n  .i_icb_cmd_burst(buf_icb_cmd_burst),\n  .i_icb_cmd_beat(buf_icb_cmd_beat),\n  .i_icb_cmd_excl(buf_icb_cmd_excl),\n  .i_icb_cmd_lock(buf_icb_cmd_lock),\n  .i_icb_cmd_size(buf_icb_cmd_size),\n  .i_icb_cmd_usr(1'b0),\n  .i_icb_rsp_valid(buf_icb_rsp_valid),\n  .i_icb_rsp_ready(buf_icb_rsp_ready),\n  .i_icb_rsp_err(buf_icb_rsp_err),\n  .i_icb_rsp_excl_ok(buf_icb_rsp_excl_ok),\n  .i_icb_rsp_rdata(buf_icb_rsp_rdata),\n  .i_icb_rsp_usr(),\n  .o_bus_icb_cmd_ready(splt_bus_icb_cmd_ready),\n  .o_bus_icb_cmd_valid(splt_bus_icb_cmd_valid),\n  .o_bus_icb_cmd_read(splt_bus_icb_cmd_read),\n  .o_bus_icb_cmd_addr(splt_bus_icb_cmd_addr),\n  .o_bus_icb_cmd_wdata(splt_bus_icb_cmd_wdata),\n  .o_bus_icb_cmd_wmask(splt_bus_icb_cmd_wmask),\n  .o_bus_icb_cmd_burst(splt_bus_icb_cmd_burst),\n  .o_bus_icb_cmd_beat(splt_bus_icb_cmd_beat),\n  .o_bus_icb_cmd_excl(splt_bus_icb_cmd_excl),\n  .o_bus_icb_cmd_lock(splt_bus_icb_cmd_lock),\n  .o_bus_icb_cmd_size(splt_bus_icb_cmd_size),\n  .o_bus_icb_cmd_usr(),\n  .o_bus_icb_rsp_valid(splt_bus_icb_rsp_valid),\n  .o_bus_icb_rsp_ready(splt_bus_icb_rsp_ready),\n  .o_bus_icb_rsp_err(splt_bus_icb_rsp_err),\n  .o_bus_icb_rsp_excl_ok(splt_bus_icb_rsp_excl_ok),\n  .o_bus_icb_rsp_rdata(splt_bus_icb_rsp_rdata),\n  .o_bus_icb_rsp_usr({ BIU_SPLT_I_NUM{ 1'b0 } }),\n  .clk(clk),\n  .rst_n(rst_n)\n)",
+    "type": "Instance",
+    "description": "This Verilog module connects internal ICB signals (cmd/rsp) to a split bus interface, managing command/data transfer with handshake signals (valid/ready), address/data paths, and protocol features like burst/exclusive access, using clock/reset for synchronization."
+  },
+  {
+    "id": 140674205992912,
+    "code": "assign weak_drvr_en = test_weakpd | test_weakpu;",
+    "type": "Assign",
+    "description": "The Verilog code assigns the signal `weak_drvr_en` the logical OR of two test signals, `test_weakpd` and `test_weakpu`. This means `weak_drvr_en` will be high if either `test_weakpd` or `test_weakpu` is high."
+  },
+  {
+    "id": 140314943751184,
+    "code": "assign rst_dtcm = rst_sync_n;",
+    "type": "Assign",
+    "description": "The code continuously assigns the synchronized active-low reset signal `rst_sync_n` to `rst_dtcm`, creating a direct connection between the two signals."
+  },
+  {
+    "id": 140674216996368,
+    "code": "assign rx_start_packet[1] = 1'b0;",
+    "type": "Assign",
+    "description": "The Verilog code assigns a static value of `0` (1-bit binary `0`) to the signal `rx_start_packet[1]`. This sets the second bit of the `rx_start_packet` array to logic low."
+  },
+  {
+    "id": 140136706379120,
+    "code": "assign CHNL_RX_CLK = CLK;",
+    "type": "Assign",
+    "description": "The code continuously assigns the CLK signal to CHNL_RX_CLK, creating a direct wire connection so that CHNL_RX_CLK always mirrors CLK's value."
+  },
+  {
+    "id": 140007949536912,
+    "code": "U1\n(\n  .CLOCK(Clock),\n  .rst_n(Reset_n),\n  .LCD_EN(LCD_EN),\n  .LCD_RW(LCD_RW),\n  .LCD_RS(LCD_RS),\n  .LCD_DATA(LCD_DATA),\n  .row_1(row_1),\n  .row_2(row_2)\n)",
+    "type": "Instance",
+    "description": "Instantiates module U1 for LCD control, connecting clock/reset, LCD enable/data lines, and row signals (row_1/row_2). Manages LCD interface operations with specified pins."
+  },
+  {
+    "id": 140674214590896,
+    "code": "assign s_axis_tready = m_axis_tready;",
+    "type": "Assign",
+    "description": "The Verilog code assigns the `s_axis_tready` signal directly to the value of `m_axis_tready`, indicating that the readiness of the master axis (`m_axis`) controls the readiness of the slave axis (`s_axis`)."
+  },
+  {
+    "id": 140674137373920,
+    "code": "assign m_ip_source_ip = ip_rx_ip_source_ip;",
+    "type": "Assign",
+    "description": "The Verilog code assigns the value of `ip_rx_ip_source_ip` to `m_ip_source_ip` using a continuous assignment. This means `m_ip_source_ip` will always reflect the current value of `ip_rx_ip_source_ip`."
+  },
+  {
+    "id": 140674205201856,
+    "code": "\nalways @(posedge sr_ms_clk_in or negedge sl_reset_n_sync) begin\n  if(!sl_reset_n_sync) begin\n    sltxcal_curst[2:0] <= 3'b0;\n  end else begin\n    sltxcal_curst[2:0] <= sltxcal_nxst[2:0];\n  end\nend\n",
+    "type": "Always",
+    "description": "This Verilog code describes a synchronous reset-triggered state transition. On the positive edge of `sr_ms_clk_in` or the negative edge of `sl_reset_n_sync`, it resets `sltxcal_curst` to `3'b0` if `sl_reset_n_sync` is low; otherwise, it updates `sltxcal_curst` with `sltxcal_nxst`."
+  },
+  {
+    "id": 140674134661920,
+    "code": "assign m_ip_eth_type = ip_rx_ip_eth_type;",
+    "type": "Assign",
+    "description": "The Verilog code assigns the value of `ip_rx_ip_eth_type` to `m_ip_eth_type` using a continuous assignment statement. This directly connects the two signals, ensuring `m_ip_eth_type` always mirrors the value of `ip_rx_ip_eth_type`."
+  },
+  {
+    "id": 140674134472032,
+    "code": "assign s_axis_tready = pre_fifo_axis_tready;",
+    "type": "Assign",
+    "description": "The Verilog code assigns the signal `s_axis_tready` the value of `pre_fifo_axis_tready`, indicating that the readiness of the slave axis interface is directly controlled by the pre-fifo readiness signal."
+  },
+  {
+    "id": 140674137568896,
+    "code": "assign axis_tuser[0] = s_axis_tuser;",
+    "type": "Assign",
+    "description": "The Verilog code assigns the least significant bit (`axis_tuser[0]`) of the `axis_tuser` signal to the value of the `s_axis_tuser` signal. This is a direct assignment using the `assign` statement."
+  },
+  {
+    "id": 140674134904944,
+    "code": "assign temp_rst = master_rst;",
+    "type": "Assign",
+    "description": "The Verilog code assigns the value of `master_rst` to `temp_rst` using a continuous assignment. Whenever `master_rst` changes, `temp_rst` is immediately updated to reflect the same value."
+  },
+  {
+    "id": 140674205804944,
+    "code": "\nalways @(posedge logic_clk or posedge logic_rst) begin\n  if(logic_rst) begin\n    rx_sync_reg_2 <= 2'd0;\n    rx_sync_reg_3 <= 2'd0;\n    rx_sync_reg_4 <= 2'd0;\n  end else begin\n    rx_sync_reg_2 <= rx_sync_reg_1;\n    rx_sync_reg_3 <= rx_sync_reg_2;\n    rx_sync_reg_4 <= rx_sync_reg_3;\n  end\nend\n",
+    "type": "Always",
+    "description": "The code synchronizes `rx_sync_reg_1` through a series of registers (`rx_sync_reg_2`, `rx_sync_reg_3`, `rx_sync_reg_4`) on the rising edge of `logic_clk`. If `logic_rst` is high, all registers are reset to 0. This creates a 3-stage pipeline for signal synchronization."
+  },
+  {
+    "id": 140007949028672,
+    "code": "\nalways @(*) begin\n  case(Sele)\n    2'b00: begin\n      Data_0_Add_7_A = Data_Add_A;\n      Data_0_Add_7_C = Data_Add_C;\n      Data_0_Add_7_F = Data_Add_F;\n      Data_0_Sub_7_B = Data_Sub_B;\n      Data_0_Sub_7_D = Data_Sub_D;\n      Data_0_Sub_7_E = Data_Sub_E;\n      Data_0_Sub_7_G = Data_Sub_G;\n    end\n    2'b01: begin\n      Data_1_Add_6_A = Data_Add_A;\n      Data_1_Add_6_C = Data_Add_C;\n      Data_1_Add_6_F = Data_Add_F;\n      Data_1_Sub_6_B = Data_Sub_B;\n      Data_1_Sub_6_D = Data_Sub_D;\n      Data_1_Sub_6_E = Data_Sub_E;\n      Data_1_Sub_6_G = Data_Sub_G;\n    end\n    2'b10: begin\n      Data_2_Add_5_A = Data_Add_A;\n      Data_2_Add_5_C = Data_Add_C;\n      Data_2_Add_5_F = Data_Add_F;\n      Data_2_Sub_5_B = Data_Sub_B;\n      Data_2_Sub_5_D = Data_Sub_D;\n      Data_2_Sub_5_E = Data_Sub_E;\n      Data_2_Sub_5_G = Data_Sub_G;\n    end\n    2'b11: begin\n      Data_3_Add_4_A = Data_Add_A;\n      Data_3_Add_4_C = Data_Add_C;\n      Data_3_Add_4_F = Data_Add_F;\n      Data_3_Sub_4_B = Data_Sub_B;\n      Data_3_Sub_4_D = Data_Sub_D;\n      Data_3_Sub_4_E = Data_Sub_E;\n      Data_3_Sub_4_G = Data_Sub_G;\n    end\n    default: begin\n      Data_0_Add_7_A = 8'b0;\n      Data_0_Add_7_C = 8'b0;\n      Data_0_Add_7_F = 8'b0;\n      Data_0_Sub_7_B = 8'b0;\n      Data_0_Sub_7_D = 8'b0;\n      Data_0_Sub_7_E = 8'b0;\n      Data_0_Sub_7_G = 8'b0;\n      Data_1_Add_6_A = 8'b0;\n      Data_1_Add_6_C = 8'b0;\n      Data_1_Add_6_F = 8'b0;\n      Data_1_Sub_6_B = 8'b0;\n      Data_1_Sub_6_D = 8'b0;\n      Data_1_Sub_6_E = 8'b0;\n      Data_1_Sub_6_G = 8'b0;\n      Data_2_Add_5_A = 8'b0;\n      Data_2_Add_5_C = 8'b0;\n      Data_2_Add_5_F = 8'b0;\n      Data_2_Sub_5_B = 8'b0;\n      Data_2_Sub_5_D = 8'b0;\n      Data_2_Sub_5_E = 8'b0;\n      Data_2_Sub_5_G = 8'b0;\n      Data_3_Add_4_A = 8'b0;\n      Data_3_Add_4_C = 8'b0;\n      Data_3_Add_4_F = 8'b0;\n      Data_3_Sub_4_B = 8'b0;\n      Data_3_Sub_4_D = 8'b0;\n      Data_3_Sub_4_E = 8'b0;\n      Data_3_Sub_4_G = 8'b0;\n    end\n  endcase\nend\n",
+    "type": "Always",
+    "description": "The Verilog code uses a 2-bit selector (Sele) to route Data_Add and Data_Sub signals to specific output registers (e.g., Data_0_Add_7_A, Data_1_Sub_6_G) based on the case value. In default, all outputs are reset to zero. (49 words)"
+  },
+  {
+    "id": 140314943761072,
+    "code": "u_dtcm_clkgate\n(\n  .clk_in(clk),\n  .test_mode(test_mode),\n  .clock_en(dtcm_clk_en),\n  .clk_out(clk_dtcm)\n)",
+    "type": "Instance",
+    "description": "This Verilog module instance (u_dtcm_clkgate) implements a clock-gating cell for the DTCM (clk_dtcm). It gates the input clock (clk) using enable signal dtcm_clk_en and test_mode control, optimizing power by stopping clock propagation when inactive."
+  },
+  {
+    "id": 140674136104432,
+    "code": "assign m_axis_tid = axis_tid[LENGTH];",
+    "type": "Assign",
+    "description": "The Verilog code assigns the value of `axis_tid[LENGTH]` to `m_axis_tid`. This means the specific bit or slice of the `axis_tid` signal, determined by the parameter `LENGTH`, is directly passed to `m_axis_tid` using a continuous assignment."
+  },
+  {
+    "id": 140674135003968,
+    "code": "assign m_axis_tid = (ID_ENABLE)? m_axis_tid_reg : { ID_WIDTH{ 1'b0 } };",
+    "type": "Assign",
+    "description": "The code assigns `m_axis_tid` the value of `m_axis_tid_reg` if `ID_ENABLE` is true; otherwise, it sets `m_axis_tid` to a zero value with a width of `ID_WIDTH`. This is a conditional assignment using a ternary operator."
+  },
+  {
+    "id": 140674205058928,
+    "code": "assign s = a ^ b;",
+    "type": "Assign",
+    "description": "The Verilog code assigns the output `s` to the result of a bitwise XOR operation between inputs `a` and `b`. If `a` and `b` are different, `s` is 1; otherwise, `s` is 0."
+  },
+  {
+    "id": 140314937647440,
+    "code": "assign alu_req_alu_sub = alu_i_info[0+3-1+1+1-1+1+1-1+1+1-1:0+3-1+1+1-1+1+1-1+1];",
+    "type": "Assign",
+    "description": "The code assigns the 5th bit of `alu_i_info` to `alu_req_alu_sub` by calculating the bit index using arithmetic operations."
+  },
+  {
+    "id": 140674212236320,
+    "code": "assign ms_osc_transfer_enw = (msosc_curst[1:0] == ms_osc_xfer_en)? 1'b1 : \n                             (msosc_curst[1:0] == ms_wait_rx_osc_rdy)? 1'b0 : ms_osc_transfer_en;",
+    "type": "Assign",
+    "description": "The code assigns `ms_osc_transfer_enw` to `1'b1` if `msosc_curst[1:0]` equals `ms_osc_xfer_en`, `1'b0` if it equals `ms_wait_rx_osc_rdy`, or retains the current value of `ms_osc_transfer_en` otherwise."
+  },
+  {
+    "id": 140674213949136,
+    "code": "assign stat_tx_lfc_xon = 0;",
+    "type": "Assign",
+    "description": "The Verilog code assigns a constant value of 0 to the signal `stat_tx_lfc_xon`, effectively disabling or resetting this status signal related to flow control transmission."
+  },
+  {
+    "id": 140674213949088,
+    "code": "assign stat_rx_lfc_paused = 0;",
+    "type": "Assign",
+    "description": "The Verilog code assigns the signal `stat_rx_lfc_paused` a constant value of `0`, effectively disabling or indicating no pause in the receive flow control."
+  },
+  {
+    "id": 140674213374160,
+    "code": "assign pre_fifo_axis_tvalid = s_axis_tvalid;",
+    "type": "Assign",
+    "description": "The Verilog code assigns the signal `pre_fifo_axis_tvalid` the value of `s_axis_tvalid`, directly passing the validity status from the input to the pre-FIFO stage."
+  },
+  {
+    "id": 140674137373344,
+    "code": "assign m_ip_protocol = ip_rx_ip_protocol;",
+    "type": "Assign",
+    "description": "The Verilog code assigns the value of `ip_rx_ip_protocol` to `m_ip_protocol` using a continuous assignment statement. This means that `m_ip_protocol` will always reflect the current value of `ip_rx_ip_protocol` in real-time."
+  },
+  {
+    "id": 140674205459200,
+    "code": "\nalways @(*) begin\n  case(msosc_curst)\n    ms_wait_rx_osc_rdy: begin\n      if(is_master) msosc_nxst = ms_osc_xfer_en; \n      else msosc_nxst = ms_wait_rx_osc_rdy;\n    end\n    ms_osc_xfer_en: begin\n      if(sl_osc_transfer_en_sync) msosc_nxst = ms_osc_xfer_alive; \n      else msosc_nxst = ms_osc_xfer_en;\n    end\n    ms_osc_xfer_alive: begin\n      msosc_nxst = ms_osc_xfer_alive;\n    end\n    default: begin\n      msosc_nxst = ms_wait_rx_osc_rdy;\n    end\n  endcase\nend\n",
+    "type": "Always",
+    "description": "The Verilog code defines a state machine where `msosc_nxst` is updated based on `msosc_curst`. It transitions between states `ms_wait_rx_osc_rdy`, `ms_osc_xfer_en`, and `ms_osc_xfer_alive` depending on conditions like `is_master` and `sl_osc_transfer_en_sync`. Default state is `ms_wait_rx_osc_rdy`."
+  },
+  {
+    "id": 140314938159040,
+    "code": "assign splt_bus_icb_rsp_rdata = { ifuerr_icb_rsp_rdata, ppi_icb_rsp_rdata, clint_icb_rsp_rdata, plic_icb_rsp_rdata, fio_icb_rsp_rdata, mem_icb_rsp_rdata };",
+    "type": "Assign",
+    "description": "Concatenates response data signals (ifuerr, ppi, clint, plic, fio, mem) into a single split bus ICB response data signal (splt_bus_icb_rsp_rdata) for combined interface usage."
+  },
+  {
+    "id": 140674213949520,
+    "code": "assign stat_rx_pfc_xoff = 0;",
+    "type": "Assign",
+    "description": "The Verilog code assigns a constant value of `0` to the signal `stat_rx_pfc_xoff`, effectively disabling or resetting it."
+  },
+  {
+    "id": 140674134905520,
+    "code": "mux\n(\n  Q,\n  reg_op,\n  sel,\n  mux_out\n)",
+    "type": "Instance",
+    "description": "The Verilog code defines a multiplexer (mux) module with inputs `Q`, `reg_op`, and `sel`, and output `mux_out`. The `sel` signal selects between `Q` and `reg_op` to determine the value of `mux_out`."
+  },
+  {
+    "id": 140674134461088,
+    "code": "assign pre_fifo_axis_tuser = s_axis_tuser;",
+    "type": "Assign",
+    "description": "The code assigns the value of `s_axis_tuser` directly to `pre_fifo_axis_tuser` using a continuous assignment. This means `pre_fifo_axis_tuser` will always mirror the value of `s_axis_tuser` in real-time."
+  },
+  {
+    "id": 140674134660336,
+    "code": "assign tx_pause_ack = 0;",
+    "type": "Assign",
+    "description": "The Verilog code assigns a constant value of `0` to the signal `tx_pause_ack`, effectively disabling or deasserting it."
+  },
+  {
+    "id": 140314938148864,
+    "code": "assign { ifuerr_icb_cmd_read, ppi_icb_cmd_read, clint_icb_cmd_read, plic_icb_cmd_read, fio_icb_cmd_read, mem_icb_cmd_read } = splt_bus_icb_cmd_read;",
+    "type": "Assign",
+    "description": "The code splits the `splt_bus_icb_cmd_read` signal into individual read command signals for `ifuerr_icb`, `ppi_icb`, `clint_icb`, `plic_icb`, `fio_icb`, and `mem_icb` modules using concatenation assignment."
+  },
+  {
+    "id": 140674213950336,
+    "code": "assign stat_rx_lfc_xoff = 0;",
+    "type": "Assign",
+    "description": "The Verilog code assigns a constant value of 0 to the signal `stat_rx_lfc_xoff`, effectively disabling or resetting it."
+  },
+  {
+    "id": 140674205385696,
+    "code": "assign udp_rx_ip_ihl = ip_rx_ip_ihl;",
+    "type": "Assign",
+    "description": "The Verilog code assigns the value of `ip_rx_ip_ihl` to `udp_rx_ip_ihl`, effectively copying the IP header length from one signal to another."
+  },
+  {
+    "id": 140674134466656,
+    "code": "adapter_inst\n(\n  .clk(s_clk),\n  .rst(s_rst),\n  .s_axis_tdata(s_axis_tdata),\n  .s_axis_tkeep(s_axis_tkeep),\n  .s_axis_tvalid(s_axis_tvalid),\n  .s_axis_tready(s_axis_tready),\n  .s_axis_tlast(s_axis_tlast),\n  .s_axis_tid(s_axis_tid),\n  .s_axis_tdest(s_axis_tdest),\n  .s_axis_tuser(s_axis_tuser),\n  .m_axis_tdata(pre_fifo_axis_tdata),\n  .m_axis_tkeep(pre_fifo_axis_tkeep),\n  .m_axis_tvalid(pre_fifo_axis_tvalid),\n  .m_axis_tready(pre_fifo_axis_tready),\n  .m_axis_tlast(pre_fifo_axis_tlast),\n  .m_axis_tid(pre_fifo_axis_tid),\n  .m_axis_tdest(pre_fifo_axis_tdest),\n  .m_axis_tuser(pre_fifo_axis_tuser)\n)",
+    "type": "Instance",
+    "description": "The `adapter_inst` module connects a source AXI4-Stream interface (`s_axis_*`) to a destination AXI4-Stream interface (`m_axis_*`), passing data, control, and metadata signals such as `tdata`, `tkeep`, `tvalid`, `tready`, `tlast`, `tid`, `tdest`, and `tuser` between them."
+  },
+  {
+    "id": 140007949743504,
+    "code": "Multiplier\n(\n  .Data_Add(Selector_4_to_1_to_Mult_Add),\n  .Data_Sub(Selector_4_to_1_to_Mult_Sub),\n  .Out_Data_Add_A(Mult_to_Selector_1_to_4_Add_A),\n  .Out_Data_Add_C(Mult_to_Selector_1_to_4_Add_C),\n  .Out_Data_Add_F(Mult_to_Selector_1_to_4_Add_F),\n  .Out_Data_Sub_B(Mult_to_Selector_1_to_4_Sub_B),\n  .Out_Data_Sub_D(Mult_to_Selector_1_to_4_Sub_D),\n  .Out_Data_Sub_E(Mult_to_Selector_1_to_4_Sub_E),\n  .Out_Data_Sub_G(Mult_to_Selector_1_to_4_Sub_G)\n)",
+    "type": "Instance",
+    "description": "The Multiplier module takes input data from a 4-to-1 selector (Data_Add/Sub) and generates multiplication results. It outputs processed data through seven ports (Out_Data_Add_A/C/F, Out_Data_Sub_B/D/E/G) to respective 1-to-4 selector destinations."
+  },
+  {
+    "id": 140007948737552,
+    "code": "D_Flip_Flop_1\n(\n  .Clock(Clock),\n  .Reset_n(Reset_n),\n  .In_Data_0(Data_0_Add_7_to_D_Flip_Flop_1_0),\n  .In_Data_1(Data_0_Sub_7_to_D_Flip_Flop_1_1),\n  .In_Data_2(Data_1_Add_6_to_D_Flip_Flop_1_2),\n  .In_Data_3(Data_1_Sub_6_to_D_Flip_Flop_1_3),\n  .In_Data_4(Data_2_Add_5_to_D_Flip_Flop_1_4),\n  .In_Data_5(Data_2_Sub_5_to_D_Flip_Flop_1_5),\n  .In_Data_6(Data_3_Add_4_to_D_Flip_Flop_1_6),\n  .In_Data_7(Data_3_Sub_4_to_D_Flip_Flop_1_7),\n  .Data_0_Add_7(D_Flip_Flop_1_Seler_4_to_1_0),\n  .Data_0_Sub_7(D_Flip_Flop_1_Seler_4_to_1_1),\n  .Data_1_Add_6(D_Flip_Flop_1_Seler_4_to_1_2),\n  .Data_1_Sub_6(D_Flip_Flop_1_Seler_4_to_1_3),\n  .Data_3_Add_4(D_Flip_Flop_1_Seler_4_to_1_4),\n  .Data_3_Sub_4(D_Flip_Flop_1_Seler_4_to_1_5),\n  .Data_2_Add_5(D_Flip_Flop_1_Seler_4_to_1_6),\n  .Data_2_Sub_5(D_Flip_Flop_1_Seler_4_to_1_7)\n)",
+    "type": "Instance",
+    "description": "A D flip-flop module with asynchronous reset, clock input, and eight data inputs/outputs. It registers input data (In_Data_0–7) on clock edges, resetting outputs to default values when Reset_n is low. Outputs drive signals for a 4-to-1 selector (Seler_4_to_1_*)."
+  },
+  {
+    "id": 140674205317360,
+    "code": "tx_intst_4_ckmux\n(\n  .mux_in0(tx_reg[4]),\n  .mux_in1(async_data_adap),\n  .mux_sel(jtag_intest),\n  .mux_out(tx_intst[4])\n)",
+    "type": "Instance",
+    "description": "The Verilog module `tx_intst_4_ckmux` selects between `tx_reg[4]` and `async_data_adap` based on the `jtag_intest` signal. If `jtag_intest` is active, `async_data_adap` is passed to `tx_intst[4]`; otherwise, `tx_reg[4]` is output."
+  },
+  {
+    "id": 140674214694112,
+    "code": "assign c = res;",
+    "type": "Assign",
+    "description": "The Verilog code assigns the value of the signal `res` to the output `c` continuously. This means `c` will always reflect the current value of `res` without any delay."
+  },
+  {
+    "id": 140674137374448,
+    "code": "assign m_ip_identification = ip_rx_ip_identification;",
+    "type": "Assign",
+    "description": "The code assigns the value of `ip_rx_ip_identification` to `m_ip_identification`, directly passing the identification field from an IP packet's received data to a module's output signal."
+  },
+  {
+    "id": 140674216370944,
+    "code": "i_mstxdlldcclockreq\n(\n  .clk(osc_clk),\n  .rst_n(ms_reset_n_sync),\n  .data_in(ms_tx_dcc_dll_lock_req),\n  .data_out(ms_tx_dcc_dll_lock_req_sync)\n)",
+    "type": "Instance",
+    "description": "The Verilog module `i_mstxdlldcclockreq` synchronizes the input signal `ms_tx_dcc_dll_lock_req` with the clock `osc_clk` and reset `ms_reset_n_sync`, producing the synchronized output `ms_tx_dcc_dll_lock_req_sync`. It ensures the signal is stable across clock domains."
+  },
+  {
+    "id": 140674214591712,
+    "code": "assign m_axis_tid = (ID_ENABLE)? s_axis_tid : { ID_WIDTH{ 1'b0 } };",
+    "type": "Assign",
+    "description": "The code assigns `m_axis_tid` the value of `s_axis_tid` if `ID_ENABLE` is true; otherwise, it sets `m_axis_tid` to a zero-filled vector of width `ID_WIDTH`. This conditional assignment controls the transfer of an ID signal based on the enable flag."
+  },
+  {
+    "id": 140674137367824,
+    "code": "assign m_ip_payload_axis_tvalid = s_select_ip_reg && ip_rx_ip_payload_axis_tvalid;",
+    "type": "Assign",
+    "description": "The code assigns `m_ip_payload_axis_tvalid` the value of `ip_rx_ip_payload_axis_tvalid` only if `s_select_ip_reg` is true. This acts as a conditional gate for the valid signal based on the selection register."
+  },
+  {
+    "id": 140674213364272,
+    "code": "assign pre_fifo_axis_tuser = s_axis_tuser;",
+    "type": "Assign",
+    "description": "The Verilog code assigns the value of `s_axis_tuser` to `pre_fifo_axis_tuser` using a continuous assignment statement, effectively connecting the two signals directly."
+  },
+  {
+    "id": 140674213562176,
+    "code": "assign m_ip_version = ip_rx_ip_version;",
+    "type": "Assign",
+    "description": "The Verilog code assigns the value of `ip_rx_ip_version` to `m_ip_version` using a continuous assignment. This means `m_ip_version` will always reflect the current value of `ip_rx_ip_version` in real-time."
+  },
+  {
+    "id": 140674205067904,
+    "code": "assign tx_shift[3:0] = (jtag_tx_scanen_in)? { tx_reg[4:1] } : tx_intst[3:0];",
+    "type": "Assign",
+    "description": "The code assigns the lower 4 bits of `tx_shift` to either a shifted version of `tx_reg` (bits 4:1) if `jtag_tx_scanen_in` is true, or to `tx_intst` (bits 3:0) otherwise."
+  },
+  {
+    "id": 140674205486064,
+    "code": "assign odat0_out = (shift_en)? odat0_in1 : odat0_in0;",
+    "type": "Assign",
+    "description": "The Verilog code assigns `odat0_out` the value of `odat0_in1` if `shift_en` is true; otherwise, it assigns `odat0_in0`. It acts as a simple multiplexer controlled by `shift_en`."
+  }
+]
